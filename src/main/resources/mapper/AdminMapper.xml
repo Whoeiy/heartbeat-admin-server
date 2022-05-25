@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.heartbeatadminserver.dao.AdminDao">
+    <!--    public Admin getAdminByName(String name);-->
+    <select id="getAdminByName" resultType="com.example.heartbeatadminserver.entity.Admin">
+        select * from admin where name=#{name}
+    </select>
+</mapper>
