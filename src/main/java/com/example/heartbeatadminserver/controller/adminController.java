@@ -24,12 +24,16 @@ public class adminController {
 
     @ResponseBody
     @PostMapping ("/login")
-    public String login(@RequestBody AdminLoginParam adminLoginParam){
+    public Result<String> login(@RequestBody AdminLoginParam adminLoginParam){
         String res = this.adminService.adminlogin(adminLoginParam.getName(), adminLoginParam.getPassword());
-        if(res.equals("登录成功")){
-            Result result = ResultGenerator.genSuccessResult();
+        Result result = new Result();
+        if(res.equals("NOT FOUND")){
+            result = ResultGenerator.genFailResult("用户名不存在");
+        } else if (res.equals("ERROR")) {
+            result = ResultGenerator.genFailResult("用户名或密码错误");
+        } else {
+            result = ResultGenerator.genSuccessResult(res);
         }
-
-        return "test";
+        return result;
     }
 }

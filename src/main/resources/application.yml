@@ -8,3 +8,9 @@ spring:
 
 mybatis:
   mapper-locations: classpath:mapper/*.xml
+
+# jwt配置
+jwt:
+  config:
+    secret: heartbeat
+    ttl: 3000
