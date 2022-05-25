@@ -7,4 +7,21 @@
     <select id="getAdminByName" resultType="com.example.heartbeatadminserver.entity.Admin">
         select * from admin where name=#{name}
     </select>
+
+    <!--    public AdminToken getTokenById(Integer adminId);-->
+    <select id="getTokenById" resultType="com.example.heartbeatadminserver.entity.AdminToken">
+        select * from admin_token where adminID=#{adminId}
+    </select>
+
+    <!--   public int insertToken(AdminToken adminToken);    -->
+    <insert id="insertToken" parameterType="com.example.heartbeatadminserver.entity.AdminToken">
+        insert into admin_token (adminID, token)
+        values (#{adminId, jdbcType=INTEGER}, #{token, jdbcType=CLOB})
+    </insert>
+
+    <!--    public int updateToken(AdminToken adminToken);-->
+    <update id="updateToken" parameterType="com.example.heartbeatadminserver.entity.AdminToken">
+        update admin_token
+        set token = #{token, jdbcType=CLOB} where adminID=#{adminId}
+    </update>
 </mapper>
