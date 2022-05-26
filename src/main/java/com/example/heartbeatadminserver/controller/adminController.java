@@ -5,6 +5,10 @@ import com.example.heartbeatadminserver.controller.param.AdminLoginParam;
 import com.example.heartbeatadminserver.service.AdminServiceImpl;
 import com.example.heartbeatadminserver.util.Result;
 import com.example.heartbeatadminserver.util.ResultGenerator;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +21,7 @@ import org.springframework.web.bind.annotation.*;
 @Slf4j
 @Controller
 @RequestMapping("/admin")
+@Api("Admin")
 public class adminController {
 
     @Autowired
@@ -24,6 +29,11 @@ public class adminController {
 
     @ResponseBody
     @PostMapping ("/login")
+    @ApiOperation("/Admin登录")
+//    @ApiImplicitParams({
+//            @ApiImplicitParam(name = "name", value = "Admin英文登录名", required = true, paramType = "body", dataType = "String"),
+//            @ApiImplicitParam(name = "password", value = "Admin登录密码", required = true, paramType = "body", dataType = "String")
+//    })
     public Result<String> login(@RequestBody AdminLoginParam adminLoginParam){
         String res = this.adminService.adminlogin(adminLoginParam.getName(), adminLoginParam.getPassword());
         Result result = new Result();
