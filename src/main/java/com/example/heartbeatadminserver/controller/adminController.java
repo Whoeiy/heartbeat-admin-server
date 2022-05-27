@@ -7,6 +7,7 @@ import com.example.heartbeatadminserver.service.Impl.AdminServiceImpl;
 import com.example.heartbeatadminserver.util.Result;
 import com.example.heartbeatadminserver.util.ResultGenerator;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,7 +47,9 @@ public class adminController {
 
 //    public Result profile()
     @GetMapping("/profile")
-    public Result<Admin> profile(String name, int adminId) {
+    @ApiOperation("/获取Admin信息")
+    @ApiImplicitParam(name = "adminId", value = "从管理员的token中获得，在header中添加token", required = true, paramType = "header", dataType = "Integer", dataTypeClass = Integer.class)
+    public Result<Admin> profile(int adminId) {
         Admin admin = this.adminService.getAdminById(adminId);
         admin.setPassword("******");
         return ResultGenerator.genSuccessResult(admin);

@@ -1,8 +1,10 @@
 package com.example.heartbeatadminserver;
 
 import com.example.heartbeatadminserver.dao.AdminDao;
+import com.example.heartbeatadminserver.dao.VendorDao;
 import com.example.heartbeatadminserver.entity.Admin;
 import com.example.heartbeatadminserver.entity.AdminToken;
+import com.example.heartbeatadminserver.entity.Vendor;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -34,9 +36,18 @@ class HeartbeatAdminServerApplicationTests {
     }
 
     @Test
-    void testGetAdminById(){
+    void testGetAdminById() {
         Admin admin = adminDao.getAdminById((1));
         System.out.println(admin);
+    }
+
+    // vendor
+    @Autowired
+    private VendorDao vendorDao;
+    @Test
+    void testGetVendorByNameEn(){
+        Vendor vendor = vendorDao.getVendorByNameEn("daoxc");
+        System.out.println(vendor);
     }
 
 }

@@ -15,7 +15,7 @@ import java.io.IOException;
 import java.util.*;
 
 @Slf4j
-@WebFilter(filterName = "JwtFilter", urlPatterns = "/*")
+@WebFilter(filterName = "JwtFilter", urlPatterns = "/admin/*")
 public class JwtFilter implements Filter {
 
     private static final Set<String> ALLOWED_PATHS = Collections.unmodifiableSet(new HashSet<>(
@@ -45,7 +45,7 @@ public class JwtFilter implements Filter {
                 // 添加参数
                 Map<String, Claim> userClaimMap = jwtUtil.verifyToken(token);
 
-                requestWrapper.addParameter("name", userClaimMap.get("name").asString());
+//                requestWrapper.addParameter("name", userClaimMap.get("name").asString());
                 requestWrapper.addParameter("adminId", userClaimMap.get("id").asInt());
             } catch (Exception e) {
                 response.setCharacterEncoding("utf-8");

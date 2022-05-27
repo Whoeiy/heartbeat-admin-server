@@ -8,7 +8,7 @@ public class ResultGenerator {
 
     public static Result genSuccessResult(){
         Result result = new Result();
-        result.setCode(RESULT_CODE_SERVER_ERROR);
+        result.setCode(RESULT_CODE_SUCCESS);
         result.setMessage(DEFAULT_SUCCESS_MESSAGE);
         return result;
     }
