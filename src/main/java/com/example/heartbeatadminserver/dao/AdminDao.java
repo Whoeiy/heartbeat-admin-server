@@ -8,6 +8,8 @@ import org.apache.ibatis.annotations.Mapper;
 public interface AdminDao {
     public Admin getAdminByName(String name);
 
+    public Admin getAdminById(Integer adminId);
+
     public AdminToken getTokenById(Integer adminId);
 
     public int insertToken(AdminToken adminToken);

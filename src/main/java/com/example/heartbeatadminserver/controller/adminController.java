@@ -2,24 +2,22 @@ package com.example.heartbeatadminserver.controller;
 
 
 import com.example.heartbeatadminserver.controller.param.AdminLoginParam;
-import com.example.heartbeatadminserver.service.AdminServiceImpl;
+import com.example.heartbeatadminserver.entity.Admin;
+import com.example.heartbeatadminserver.service.Impl.AdminServiceImpl;
 import com.example.heartbeatadminserver.util.Result;
 import com.example.heartbeatadminserver.util.ResultGenerator;
 import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiImplicitParams;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 /**
- * 管理员类
+ * 管理员Controller类
  * @author yy
  */
 @Slf4j
-@Controller
+@RestController
 @RequestMapping("/admin")
 @Api("Admin")
 public class adminController {
@@ -27,7 +25,6 @@ public class adminController {
     @Autowired
     AdminServiceImpl adminService;
 
-    @ResponseBody
     @PostMapping ("/login")
     @ApiOperation("/Admin登录")
 //    @ApiImplicitParams({
@@ -46,4 +43,21 @@ public class adminController {
         }
         return result;
     }
+
+//    public Result profile()
+    @GetMapping("/profile")
+    public Result<Admin> profile(String name, int adminId) {
+        Admin admin = this.adminService.getAdminById(adminId);
+        admin.setPassword("******");
+        return ResultGenerator.genSuccessResult(admin);
+    }
+
+    @GetMapping("/getUserByFilter")
+    public Result<Admin> getUserByFilter(String name, int adminId) {
+        Admin admin = new Admin();
+        admin.setName(name);
+        admin.setAdminID(adminId);
+        return ResultGenerator.genSuccessResult(admin);
+    }
+
 }

@@ -1,15 +1,16 @@
-package com.example.heartbeatadminserver.service;
+package com.example.heartbeatadminserver.service.Impl;
 
 import com.example.heartbeatadminserver.dao.AdminDao;
 import com.example.heartbeatadminserver.entity.Admin;
 import com.example.heartbeatadminserver.entity.AdminToken;
+import com.example.heartbeatadminserver.service.IAdminService;
 import com.example.heartbeatadminserver.util.JwtUtil;
 import com.example.heartbeatadminserver.util.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AdminServiceImpl implements AdminService{
+public class AdminServiceImpl implements IAdminService {
 
     @Autowired
     private AdminDao adminDao;
@@ -42,5 +43,11 @@ public class AdminServiceImpl implements AdminService{
         } else {
             return "ERROR";
         }
+    }
+
+    @Override
+    public Admin getAdminById(Integer adminId) {
+        Admin admin = this.adminDao.getAdminById(adminId);
+        return admin;
     }
 }

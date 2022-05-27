@@ -8,6 +8,11 @@
         select * from admin where name=#{name}
     </select>
 
+    <!-- public Admin getAdminById(Integer adminId);-->
+    <select id="getAdminById" resultType="com.example.heartbeatadminserver.entity.Admin">
+        select * from admin where adminID=#{adminId}
+    </select>
+
     <!--    public AdminToken getTokenById(Integer adminId);-->
     <select id="getTokenById" resultType="com.example.heartbeatadminserver.entity.AdminToken">
         select * from admin_token where adminID=#{adminId}

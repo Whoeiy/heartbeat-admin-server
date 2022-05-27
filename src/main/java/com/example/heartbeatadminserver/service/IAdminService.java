@@ -1,6 +1,8 @@
 package com.example.heartbeatadminserver.service;
 
-public interface AdminService {
+import com.example.heartbeatadminserver.entity.Admin;
+
+public interface IAdminService {
 
     /**
      * 管理员登录
@@ -9,5 +11,7 @@ public interface AdminService {
      * @return
      */
     public String adminlogin(String name, String password);
+
+    public Admin getAdminById(Integer adminId);
 
 }

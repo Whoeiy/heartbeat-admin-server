@@ -1,6 +1,7 @@
 package com.example.heartbeatadminserver;
 
 import com.example.heartbeatadminserver.dao.AdminDao;
+import com.example.heartbeatadminserver.entity.Admin;
 import com.example.heartbeatadminserver.entity.AdminToken;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,12 @@ class HeartbeatAdminServerApplicationTests {
     }
     @Test
     void contextLoads() {
+    }
+
+    @Test
+    void testGetAdminById(){
+        Admin admin = adminDao.getAdminById((1));
+        System.out.println(admin);
     }
 
 }
