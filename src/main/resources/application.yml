@@ -35,3 +35,8 @@ jwt:
     secret: heartbeat
     ttl: 3000
 
+
+# MP 显示运行日志参数
+mybatis-plus:
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
