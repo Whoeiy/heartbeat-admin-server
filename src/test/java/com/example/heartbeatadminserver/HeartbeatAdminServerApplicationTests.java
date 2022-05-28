@@ -15,8 +15,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.lang.invoke.LambdaConversionException;
-import java.util.Date;
+
+import java.util.List;
+
 
 @SpringBootTest
 class HeartbeatAdminServerApplicationTests {
@@ -134,6 +135,18 @@ class HeartbeatAdminServerApplicationTests {
     void testGetVendorByNameEn(){
         Vendor vendor = vendorDao.getVendorByNameEn("daoxc");
         System.out.println(vendor);
+    }
+
+    @Test
+    void testGetVendorList(){
+        List<Vendor> vendorList = vendorDao.getVendorList();
+        System.out.println(vendorList);
+    }
+
+    @Test
+    void testGetVendorListByKey(){
+        List<Vendor> vendorList = vendorDao.getVendorListByKey("daoxczm");
+        System.out.println(vendorList);
     }
 
 }

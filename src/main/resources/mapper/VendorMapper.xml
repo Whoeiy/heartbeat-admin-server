@@ -3,9 +3,49 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.example.heartbeatadminserver.dao.VendorDao">
+    <!-- column: db, property: entity -->
+    <resultMap id="BaseResultMap" type="com.example.heartbeatadminserver.entity.Vendor">
+        <id column="vendID" jdbcType="INTEGER" property="vendId" />
+        <result column="nameEn" jdbcType="VARCHAR" property="nameEn" />
+        <result column="nameCn" jdbcType="VARCHAR" property="nameCn" />
+        <result column="passwordMd5" jdbcType="VARCHAR" property="passwordMd5" />
+        <result column="logoUrl" jdbcType="CLOB" property="logoUrl" />
+        <result column="store" jdbcType="VARCHAR" property="store" />
+        <result column="showRank" jdbcType="INTEGER" property="showRank" />
+        <result column="isShown" jdbcType="INTEGER" property="isShown" />
+        <result column="isDeleted" jdbcType="INTEGER" property="isDeleted" />
+        <result column="holdTime" jdbcType="TIMESTAMP" property="holdTime" />
+        <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+
+    <sql id="BaseColList">
+        vendorID, nameEn, nameCn, passwordMd5, logoUrl, store, showRank,
+    </sql>
     <!--    Vendor getVendorByNameEn(String nameEn);-->
     <select id="getVendorByNameEn" resultType="com.example.heartbeatadminserver.entity.Vendor">
         select * from vendor where nameEn=#{nameEn}
+    </select>
+    <!--    List<Vendor> getVendorList(String keywords);-->
+    <select id="getVendorList" resultMap="BaseResultMap">
+        select * from vendor
+        where isDeleted = 0
+        order by showRank desc, holdTime desc
+    </select>
+    <!-- List<Vendor> getVendorListByKey(String keywords); -->
+    <select id="getVendorListByKey" resultMap="BaseResultMap">
+        select * from vendor
+        where isDeleted = 0 and nameEn like concat('%', #{keywords}, '%')
+        order by showRank desc, holdTime desc
+    </select>
+    <!--    Integer countTotalVendor();-->
+    <select id="countTotalVendor" resultType="INTEGER">
+        select count(*) from vendor
+        where isDeleted = 0
+    </select>
+    <!--    Integer countSearchVendor(String keywords);-->
+    <select id="countSearchVendor" resultType="INTEGER">
+        select count(*) from vendor
+        where isDeleted = 0 and nameEn like concat('%', #{keywords}, '%')
     </select>
     <!--    int insertVendor(Vendor vendor);-->
     <insert id="insertVendor" parameterType="com.example.heartbeatadminserver.entity.Vendor">
