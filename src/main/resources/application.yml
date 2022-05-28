@@ -33,7 +33,7 @@ mybatis:
 jwt:
   config:
     secret: heartbeat
-    ttl: 3000
+    ttl: 7200
 
 
 # MP 显示运行日志参数
