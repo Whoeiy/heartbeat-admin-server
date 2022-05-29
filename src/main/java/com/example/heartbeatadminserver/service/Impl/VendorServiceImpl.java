@@ -1,5 +1,6 @@
 package com.example.heartbeatadminserver.service.Impl;
 
+import com.example.heartbeatadminserver.common.ServiceResultEnum;
 import com.example.heartbeatadminserver.dao.VendorDao;
 import com.example.heartbeatadminserver.entity.Vendor;
 import com.example.heartbeatadminserver.service.IVendorService;
@@ -11,6 +12,7 @@ import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -59,5 +61,47 @@ public class VendorServiceImpl implements IVendorService{
         pageResult.setTotalPage(totalPage);
 
         return pageResult;
+    }
+
+    @Override
+    public Vendor queryVendorById(Integer vendorId) {
+        return this.vendorDao.getVendorById(vendorId);
+    }
+
+    @Override
+    public String updateVendor(Vendor vendor) {
+        Vendor temp = this.vendorDao.getVendorById(vendor.getVendorId());
+        if (temp == null) {
+            return ServiceResultEnum.DATA_NOT_EXIST.getResult();
+        }
+        vendor.setUpdateTime(new Date());
+        if (this.vendorDao.updateByVendorId(vendor) > 0) {
+            return ServiceResultEnum.SUCCESS.getResult();
+        }
+        return ServiceResultEnum.DB_ERROR.getResult();
+    }
+
+    @Override
+    public String deleteVendor(int vendorId) {
+        Vendor vendor = this.vendorDao.getVendorById(vendorId);
+        if (vendor == null) {
+            return ServiceResultEnum.DATA_NOT_EXIST.getResult();
+        }
+        if (this.vendorDao.deleteVendorById(vendorId) > 0) {
+            return ServiceResultEnum.SUCCESS.getResult();
+        }
+        return ServiceResultEnum.DB_ERROR.getResult();
+    }
+
+    @Override
+    public String updateIsShown(int vendorId) {
+        Vendor vendor = this.vendorDao.getVendorById(vendorId);
+        if (vendor == null) {
+            return ServiceResultEnum.DATA_NOT_EXIST.getResult();
+        }
+        if (this.vendorDao.updateVendorIsShownById(vendorId) > 0) {
+            return ServiceResultEnum.SUCCESS.getResult();
+        }
+        return ServiceResultEnum.DB_ERROR.getResult();
     }
 }

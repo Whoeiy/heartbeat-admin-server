@@ -1,5 +1,6 @@
 package com.example.heartbeatadminserver.controller;
 
+import com.example.heartbeatadminserver.common.ServiceResultEnum;
 import com.example.heartbeatadminserver.controller.param.VendorAddParam;
 import com.example.heartbeatadminserver.entity.Vendor;
 import com.example.heartbeatadminserver.service.Impl.VendorServiceImpl;
@@ -14,7 +15,7 @@ import java.util.Date;
 @Slf4j
 @RestController
 @RequestMapping("/admin")
-public class vendorController {
+public class VendorController {
 
     @Autowired
     private VendorServiceImpl vendorService;
@@ -55,4 +56,46 @@ public class vendorController {
 
         return result;
     }
+
+    @GetMapping("/vendor/{vendorId}")
+    @ApiOperation("/根据vendorId查询商家信息")
+    public Result<Vendor> getVendorById(@ApiParam(name = "vendorId", value = "商家Id", required = true) @PathVariable int vendorId, int adminId){
+
+        Vendor vendor = this.vendorService.queryVendorById(vendorId);
+        if (vendor == null){
+            return ResultGenerator.genFailResult("未查询到该商家");
+        }
+        return ResultGenerator.genSuccessResult(vendor);
+    }
+
+    @PutMapping("/vendor")
+    @ApiOperation("/根据vendorId更新商家信息")
+    public Result<String> updateVendorById(@RequestBody Vendor vendor, int adminId){
+        String res = this.vendorService.updateVendor(vendor);
+        if (res.equals(ServiceResultEnum.SUCCESS.getResult())) {
+            return ResultGenerator.genSuccessResult(res);
+        }
+        return ResultGenerator.genFailResult(res);
+    }
+
+    @DeleteMapping("/vendor/{vendorId}")
+    @ApiOperation(("/根据vendorId删除商家信息"))
+    public Result<String> deleteVendorById(@ApiParam(name = "vendorId", value = "商家Id", required = true) @PathVariable int vendorId) {
+        String res = this.vendorService.deleteVendor(vendorId);
+        if (res.equals(ServiceResultEnum.SUCCESS.getResult())){
+            return ResultGenerator.genSuccessResult(res);
+        }
+        return ResultGenerator.genFailResult(res);
+    }
+
+    @PutMapping("/vendor/showStatus")
+    @ApiOperation("/根据vendorId更新商家是否显示")
+    public Result<String> showStatus(@ApiParam(name = "vendorId", value = "商家Id", required = true) @RequestParam int vendorId) {
+        String res = this.vendorService.updateIsShown(vendorId);
+        if (res.equals(ServiceResultEnum.SUCCESS.getResult())) {
+            return ResultGenerator.genSuccessResult(res);
+        }
+        return ResultGenerator.genFailResult(res);
+    }
+
 }

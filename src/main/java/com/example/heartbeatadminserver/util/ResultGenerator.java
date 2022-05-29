@@ -13,6 +13,17 @@ public class ResultGenerator {
         return result;
     }
 
+    public static Result genSuccessResult(String message){
+        Result result = new Result();
+        result.setCode(RESULT_CODE_SUCCESS);
+        if (message.isEmpty()){
+            result.setMessage(DEFAULT_SUCCESS_MESSAGE);
+        } else {
+            result.setMessage(message);
+        }
+        return result;
+    }
+
     public static Result genSuccessResult(Object data) {
         Result result = new Result();
         result.setCode(RESULT_CODE_SUCCESS);

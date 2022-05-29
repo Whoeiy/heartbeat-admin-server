@@ -161,4 +161,20 @@ class HeartbeatAdminServerApplicationTests {
         System.out.println(vendorList);
     }
 
+    @Test
+    void testGetVendorById(){
+        Vendor vendor = vendorDao.getVendorById(10);
+        System.out.println(vendor);
+    }
+
+    @Test
+    void testUpdateVendorById(){
+
+    }
+
+    @Test
+    void testDeleteVendorById(){
+        System.out.println(vendorDao.deleteVendorById(5));
+    }
+
 }
