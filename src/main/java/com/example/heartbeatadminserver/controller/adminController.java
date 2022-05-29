@@ -40,7 +40,7 @@ public class adminController {
         } else if (res.equals("ERROR")) {
             result = ResultGenerator.genFailResult("用户名或密码错误");
         } else {
-            result = ResultGenerator.genSuccessResult(res);
+            result = ResultGenerator.genSuccessResultData(res);
         }
         return result;
     }
@@ -52,7 +52,7 @@ public class adminController {
     public Result<Admin> profile(int adminId) {
         Admin admin = this.adminService.getAdminById(adminId);
         admin.setPassword("******");
-        return ResultGenerator.genSuccessResult(admin);
+        return ResultGenerator.genSuccessResultData(admin);
     }
 
     @GetMapping("/getUserByFilter")
@@ -60,7 +60,7 @@ public class adminController {
         Admin admin = new Admin();
         admin.setName(name);
         admin.setAdminID(adminId);
-        return ResultGenerator.genSuccessResult(admin);
+        return ResultGenerator.genSuccessResultData(admin);
     }
 
 }

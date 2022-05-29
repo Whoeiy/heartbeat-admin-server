@@ -52,7 +52,7 @@ public class VendorController {
         String key = keyword;
 
         PageResult pageResult = this.vendorService.queryVendorListPaged(key, pageParam);
-        Result<PageResult> result = ResultGenerator.genSuccessResult(pageResult);
+        Result<PageResult> result = ResultGenerator.genSuccessResultData(pageResult);
 
         return result;
     }
@@ -65,7 +65,7 @@ public class VendorController {
         if (vendor == null){
             return ResultGenerator.genFailResult("未查询到该商家");
         }
-        return ResultGenerator.genSuccessResult(vendor);
+        return ResultGenerator.genSuccessResultData(vendor);
     }
 
     @PutMapping("/vendor")

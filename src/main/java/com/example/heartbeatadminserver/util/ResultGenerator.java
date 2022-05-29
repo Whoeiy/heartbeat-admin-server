@@ -24,7 +24,7 @@ public class ResultGenerator {
         return result;
     }
 
-    public static Result genSuccessResult(Object data) {
+    public static Result genSuccessResultData(Object data) {
         Result result = new Result();
         result.setCode(RESULT_CODE_SUCCESS);
         result.setMessage(DEFAULT_SUCCESS_MESSAGE);

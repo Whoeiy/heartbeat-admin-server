@@ -106,75 +106,70 @@ class HeartbeatAdminServerApplicationTests {
     }
 
 
-
-
-
-
-
-    @Autowired
-    private AdminDao adminDao;
-
-    @Test
-    void testInsertToken(){
-        AdminToken adminToken = new AdminToken(1,1,"test");
-        System.out.print(adminDao.insertToken(adminToken));
-    }
-
-    @Test
-    void testUpdateToken(){
-        AdminToken adminToken = new AdminToken(1,1,"testtt");
-        System.out.println(adminDao.updateToken(adminToken));
-    }
-    @Test
-    void testGetTokenById(){
-        AdminToken adminToken = adminDao.getTokenById(2);
-        System.out.println(adminToken);
-    }
-    @Test
-    void contextLoads() {
-    }
-
-    @Test
-    void testGetAdminById() {
-        Admin admin = adminDao.getAdminById((1));
-        System.out.println(admin);
-    }
-
-    // vendor
-    @Autowired
-    private VendorDao vendorDao;
-    @Test
-    void testGetVendorByNameEn(){
-        Vendor vendor = vendorDao.getVendorByNameEn("daoxc");
-        System.out.println(vendor);
-    }
-
-    @Test
-    void testGetVendorList(){
-        List<Vendor> vendorList = vendorDao.getVendorList();
-        System.out.println(vendorList);
-    }
-
-    @Test
-    void testGetVendorListByKey(){
-        List<Vendor> vendorList = vendorDao.getVendorListByKey("daoxczm");
-        System.out.println(vendorList);
-    }
-
-    @Test
-    void testGetVendorById(){
-        Vendor vendor = vendorDao.getVendorById(10);
-        System.out.println(vendor);
-    }
-
-    @Test
-    void testUpdateVendorById(){
-
-    }
-
-    @Test
-    void testDeleteVendorById(){
-        System.out.println(vendorDao.deleteVendorById(5));
-    }
+//    @Autowired
+//    private AdminDao adminDao;
+//
+//    @Test
+//    void testInsertToken(){
+//        AdminToken adminToken = new AdminToken(1,1,"test");
+//        System.out.print(adminDao.insertToken(adminToken));
+//    }
+//
+//    @Test
+//    void testUpdateToken(){
+//        AdminToken adminToken = new AdminToken(1,1,"testtt");
+//        System.out.println(adminDao.updateToken(adminToken));
+//    }
+//    @Test
+//    void testGetTokenById(){
+//        AdminToken adminToken = adminDao.getTokenById(2);
+//        System.out.println(adminToken);
+//    }
+//    @Test
+//    void contextLoads() {
+//    }
+//
+//    @Test
+//    void testGetAdminById() {
+//        Admin admin = adminDao.getAdminById((1));
+//        System.out.println(admin);
+//    }
+//
+//    // vendor
+//    @Autowired
+//    private VendorDao vendorDao;
+//    @Test
+//    void testGetVendorByNameEn(){
+//        Vendor vendor = vendorDao.getVendorByNameEn("daoxc");
+//        System.out.println(vendor);
+//    }
+//
+//    @Test
+//    void testGetVendorList(){
+//        List<Vendor> vendorList = vendorDao.getVendorList();
+//        System.out.println(vendorList);
+//    }
+//
+//    @Test
+//    void testGetVendorListByKey(){
+//        List<Vendor> vendorList = vendorDao.getVendorListByKey("daoxczm");
+//        System.out.println(vendorList);
+//    }
+//
+//    @Test
+//    void testGetVendorById(){
+//        Vendor vendor = vendorDao.getVendorById(10);
+//        System.out.println(vendor);
+//    }
+//
+//    @Test
+//    void testUpdateVendorById(){
+//
+//    }
+//
+//    @Test
+//    void testDeleteVendorById(){
+//        System.out.println(vendorDao.deleteVendorById(5));
+//    }
 
 }
