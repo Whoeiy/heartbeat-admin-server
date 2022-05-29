@@ -166,7 +166,7 @@
     <!--    Integer updateVendorIsShownById(Integer vendorId);-->
     <update id="updateVendorIsShownById">
         update vendor set isShown = 0, updateTime = now()
-        where vendorID = #{vendorId}
+        where vendorID = #{vendorId, jdbcType=INTEGER}
     </update>
 
 </mapper>

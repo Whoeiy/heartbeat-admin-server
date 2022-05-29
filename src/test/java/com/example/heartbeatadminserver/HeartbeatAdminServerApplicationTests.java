@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.heartbeatadminserver.dao.AdminDao;
+import com.example.heartbeatadminserver.dao.CarouselDao;
 import com.example.heartbeatadminserver.dao.CategoryDao;
 import com.example.heartbeatadminserver.dao.VendorDao;
 import com.example.heartbeatadminserver.entity.Admin;
@@ -105,6 +106,24 @@ class HeartbeatAdminServerApplicationTests {
         System.out.println(categoryDao.selectList(qw));
     }
 
+    // carousel
+    @Autowired
+    private CarouselDao carouselDao;
+
+    @Test
+    void testGetCarouselList(){
+        System.out.println(this.carouselDao.getCarouselList());
+    }
+
+    @Test
+    void testGetCarouselById(){
+        System.out.println(this.carouselDao.getCarouselById(3));
+    }
+
+    @Test
+    void testDeleteCarousel(){
+        System.out.println(this.carouselDao.deleteCarouselById(3));
+    }
 
 //    @Autowired
 //    private AdminDao adminDao;

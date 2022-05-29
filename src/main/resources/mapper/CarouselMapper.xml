@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.heartbeatadminserver.dao.CarouselDao">
+    <resultMap id="BaseResultMap" type="com.example.heartbeatadminserver.entity.Carousel">
+        <id column="carouselId" jdbcType="INTEGER" property="carouselId" />
+        <result column="imgUrl" jdbcType="CLOB" property="imgUrl" />
+        <result column="jumpUrl" jdbcType="CLOB" property="jumpUrl" />
+        <result column="showRank" jdbcType="INTEGER" property="showRank" />
+        <result column="isDeleted" jdbcType="INTEGER" property="isDeleted" />
+        <result column="holdTime" jdbcType="TIMESTAMP" property="holdTime" />
+        <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+    <!--    List<Carousel> getCarouselList();-->
+    <select id="getCarouselList" resultMap="BaseResultMap">
+        select * from carousel
+        where isDeleted = 0
+        order by showRank desc, carouselID asc
+    </select>
+
+    <!--    Carousel getCarouselById(Integer carouselId);-->
+    <select id="getCarouselById" parameterType="INTEGER" resultType="com.example.heartbeatadminserver.entity.Carousel">
+        select * from carousel
+        where isDeleted = 0 and carouselId = #{carouselId}
+    </select>
+
+    <insert id="insertCarousel" parameterType="com.example.heartbeatadminserver.entity.Carousel">
+        insert into carousel
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="imgUrl != null">
+                imgUrl,
+            </if>
+            <if test="jumpUrl != null">
+                jumpUrl,
+            </if>
+            <if test="showRank != null">
+                showRank,
+            </if>
+            <if test="isDeleted != null">
+                isDeleted,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="imgUrl != null">
+                #{imgUrl, jdbcType=CLOB},
+            </if>
+            <if test="jumpUrl != null">
+                #{jumpUrl, jdbcType=CLOB},
+            </if>
+            <if test="showRank != null">
+                #{showRank, jdbcType=INTEGER},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted, jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime, jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+
+    <!--    Integer updateCarousel(Carousel carousel);-->
+    <update id="updateCarousel" parameterType="com.example.heartbeatadminserver.entity.Carousel">
+        update carousel
+        <set>
+            <if test="imgUrl != null">
+                imgUrl = #{imgUrl, jdbcType=CLOB},
+            </if>
+            <if test="jumpUrl != null">
+                jumpUrl = #{jumpUrl, jdbcType=CLOB},
+            </if>
+            <if test="showRank != null">
+                showRank = #{showRank, jdbcType=INTEGER},
+            </if>
+            <if test="isDeleted != null">
+                isDeleted = #{isDeleted, jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime, jdbcType=TIMESTAMP},
+            </if>
+            <if test="updateTime != null">
+                updateTime = #{updateTime, jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where carouselID = #{carouselId,jdbcType=INTEGER}
+    </update>
+
+    <!--    Integer deleteCarouselById(Integer carouselId);-->
+    <update id="deleteCarouselById" parameterType="com.example.heartbeatadminserver.entity.Carousel">
+        update carousel set isDeleted = 1, updateTime = now()
+        where carouselId = #{carouselId, jdbcType=INTEGER}
+    </update>
+</mapper>
