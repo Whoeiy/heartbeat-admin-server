@@ -1,5 +1,6 @@
 package com.example.heartbeatadminserver.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.example.heartbeatadminserver.entity.Category;
 import com.baomidou.mybatisplus.extension.service.IService;
 
@@ -13,6 +14,6 @@ import java.util.List;
 
 
 public interface ICategoryService extends IService<Category> {
-    public List<Category> categoryx(Integer CLevel,Integer PId);
+    IPage<Category> getPage(Integer currentpage, Integer pageSize);
 
 }
