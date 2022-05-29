@@ -13,6 +13,7 @@ import com.example.heartbeatadminserver.entity.AdminToken;
 import com.example.heartbeatadminserver.entity.Category;
 import com.example.heartbeatadminserver.entity.Vendor;
 import com.example.heartbeatadminserver.service.ICategoryService;
+import com.example.heartbeatadminserver.service.LabelService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -23,6 +24,15 @@ import java.util.List;
 
 @SpringBootTest
 class HeartbeatAdminServerApplicationTests {
+
+    @Autowired
+    private LabelService labelService;
+    @Test
+    void testGetById3(){
+        System.out.println(labelService.getById(1));
+    }
+
+
 
     // category service test
     // 业务层测试
@@ -84,12 +94,12 @@ class HeartbeatAdminServerApplicationTests {
         System.out.println(categoryDao.selectList(null));
     }
 
-    @Test
-    void testGetPage(){
-        IPage page = new Page(2,4);
-        categoryDao.selectPage(page,null);
-
-    }
+//    @Test
+//    void testGetPage(){
+//        IPage page = new Page(2,4);
+//        categoryDao.selectPage(page,null);
+//
+//    }
 
     @Test
     void testGetBy(){
