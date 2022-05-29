@@ -33,10 +33,17 @@ mybatis:
 jwt:
   config:
     secret: heartbeat
-    ttl: 3000
+    ttl: 7200
 
 
 # MP 显示运行日志参数
 mybatis-plus:
   configuration:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+# pagehelper
+pagehelper:
+  helper-dialect: mysql
+  reasonable: true
+  support-methods-arguments: true
+  params: count=countsql

@@ -1,14 +1,21 @@
 package com.example.heartbeatadminserver.util;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.io.Serializable;
 
+@ApiModel
 public class Result<T> implements Serializable {
 
     // 业务码
+    @ApiModelProperty("业务码")
     private int code;
     // 返回信息
+    @ApiModelProperty("返回信息")
     private String message;
     // 数据结果
+    @ApiModelProperty("数据结果")
     private T data;
 
     public Result() {
