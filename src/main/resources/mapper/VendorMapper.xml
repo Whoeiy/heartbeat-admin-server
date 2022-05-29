@@ -29,13 +29,13 @@
     <select id="getVendorList" resultMap="BaseResultMap">
         select * from vendor
         where isDeleted = 0
-        order by showRank desc, holdTime desc
+        order by showRank desc, vendorID asc
     </select>
     <!-- List<Vendor> getVendorListByKey(String keywords); -->
     <select id="getVendorListByKey" resultMap="BaseResultMap">
         select * from vendor
         where isDeleted = 0 and nameEn like concat('%', #{keywords}, '%')
-        order by showRank desc, holdTime desc
+        order by showRank desc, vendorID asc
     </select>
     <!--    Vendor getVendorById(int vendorId);-->
     <select id="getVendorById" resultType="com.example.heartbeatadminserver.entity.Vendor">
