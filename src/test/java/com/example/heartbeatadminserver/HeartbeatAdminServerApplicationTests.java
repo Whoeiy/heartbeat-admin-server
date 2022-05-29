@@ -11,6 +11,7 @@ import com.example.heartbeatadminserver.entity.Admin;
 import com.example.heartbeatadminserver.entity.AdminToken;
 import com.example.heartbeatadminserver.entity.Category;
 import com.example.heartbeatadminserver.entity.Vendor;
+import com.example.heartbeatadminserver.service.ICategoryService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,6 +21,17 @@ import java.util.Date;
 
 @SpringBootTest
 class HeartbeatAdminServerApplicationTests {
+
+    // category service test
+    // 业务层测试
+    @Autowired
+    private ICategoryService categoryService;
+
+    @Test
+    void testGetById2(){
+        System.out.println(categoryService.getById(1));
+    }
+
 
     // category dao test
     // 数据层测试
