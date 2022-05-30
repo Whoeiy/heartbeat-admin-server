@@ -25,11 +25,11 @@ public class LabelController {
 
     @GetMapping
     public Result<PageResult> getAll(int adminId, @RequestParam int currentPage, @RequestParam int pageSize){
-        QueryWrapper<Category> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<Label> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("isDeleted", 0)
                 .orderByDesc("labelRank")
                 .orderByAsc("labelID");
-        List<Label> res1 = labelService.list();
+        List<Label> res1 = labelService.list(queryWrapper);
         PageResult pageResult = new PageResult(res1,res1.size(),pageSize,currentPage);
         return ResultGenerator.genSuccessResultData(pageResult);
     }

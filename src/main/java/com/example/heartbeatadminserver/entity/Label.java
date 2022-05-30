@@ -29,7 +29,7 @@ public class Label implements Serializable {
     /**
      * 
      */
-    private Integer categoryrank;
+    private Integer labelrank;
 
     /**
      * 
