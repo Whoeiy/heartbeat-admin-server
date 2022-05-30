@@ -45,5 +45,5 @@ public interface IVendorService{
      */
     String deleteVendor(int vendorId);
 
-    String updateIsShown(int vendorId);
+    String updateIsShown(int vendorId, int showStatus);
 }

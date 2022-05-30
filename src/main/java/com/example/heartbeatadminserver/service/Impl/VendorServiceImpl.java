@@ -94,12 +94,12 @@ public class VendorServiceImpl implements IVendorService{
     }
 
     @Override
-    public String updateIsShown(int vendorId) {
+    public String updateIsShown(int vendorId, int showStatus) {
         Vendor vendor = this.vendorDao.getVendorById(vendorId);
         if (vendor == null) {
             return ServiceResultEnum.DATA_NOT_EXIST.getResult();
         }
-        if (this.vendorDao.updateVendorIsShownById(vendorId) > 0) {
+        if (this.vendorDao.updateVendorIsShownById(vendorId, showStatus) > 0) {
             return ServiceResultEnum.SUCCESS.getResult();
         }
         return ServiceResultEnum.DB_ERROR.getResult();

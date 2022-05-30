@@ -90,8 +90,8 @@ public class VendorController {
 
     @PutMapping("/vendor/showStatus")
     @ApiOperation("/根据vendorId更新商家是否显示")
-    public Result<String> showStatus(@ApiParam(name = "vendorId", value = "商家Id", required = true) @RequestParam int vendorId) {
-        String res = this.vendorService.updateIsShown(vendorId);
+    public Result<String> showStatus(@ApiParam(name = "vendorId", value = "商家Id", required = true) @RequestParam int vendorId, @RequestParam int showStatus) {
+        String res = this.vendorService.updateIsShown(vendorId, showStatus);
         if (res.equals(ServiceResultEnum.SUCCESS.getResult())) {
             return ResultGenerator.genSuccessResult(res);
         }

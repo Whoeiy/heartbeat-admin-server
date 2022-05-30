@@ -163,9 +163,9 @@
         where vendorID = #{vendorId, jdbcType=INTEGER}
     </update>
 
-    <!--    Integer updateVendorIsShownById(Integer vendorId);-->
+    <!--    Integer updateVendorIsShownById(Integer vendorId, Integer showStatus);-->
     <update id="updateVendorIsShownById">
-        update vendor set isShown = 0, updateTime = now()
+        update vendor set isShown = #{showStatus, jdbcType=INTEGER}, updateTime = now()
         where vendorID = #{vendorId, jdbcType=INTEGER}
     </update>
 

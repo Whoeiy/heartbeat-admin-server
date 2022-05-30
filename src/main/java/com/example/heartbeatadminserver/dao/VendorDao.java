@@ -60,5 +60,5 @@ public interface VendorDao {
 
     Integer deleteVendorById(Integer vendorId);
 
-    Integer updateVendorIsShownById(Integer vendorId);
+    Integer updateVendorIsShownById(Integer vendorId, Integer showStatus);
 }
