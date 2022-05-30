@@ -24,15 +24,14 @@ public class LabelController {
 
 
     @GetMapping
-    public PageResult getAll(int adminId, @RequestParam int currentPage, @RequestParam int pageSize){
-//        QueryWrapper<Category> queryWrapper = new QueryWrapper<>();
-//        queryWrapper.eq("categoryLevel", 1)
-//                .orderByDesc("categoryRank")
-//                .orderByAsc("categoryID");
+    public Result<PageResult> getAll(int adminId, @RequestParam int currentPage, @RequestParam int pageSize){
+        QueryWrapper<Category> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("isDeleted", 0)
+                .orderByDesc("labelRank")
+                .orderByAsc("labelID");
         List<Label> res1 = labelService.list();
-        // 排序： 排序值 rank 值 倒叙， 创建时间倒叙
-        PageResult pageResult = new PageResult(res1,res1.size(),currentPage,pageSize);
-        return pageResult;
+        PageResult pageResult = new PageResult(res1,res1.size(),pageSize,currentPage);
+        return ResultGenerator.genSuccessResultData(pageResult);
     }
 //
 //    @GetMapping("/level")

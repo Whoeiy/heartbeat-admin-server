@@ -25,29 +25,30 @@ public class CategoryController {
 
 
     @GetMapping
-    public PageResult getAll(int adminId, @RequestParam int currentPage, @RequestParam int pageSize){
+    public Result<PageResult> getAll(int adminId, @RequestParam int currentPage, @RequestParam int pageSize){
         QueryWrapper<Category> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("categoryLevel", 1)
+                .eq("isDeleted", 0) // 过滤已删除的分类
                 .orderByDesc("categoryRank")
                 .orderByAsc("categoryID");
         List<Category> res1 = categoryService.list(queryWrapper);
-        // 排序： 排序值 rank 值 倒叙， 创建时间倒叙
-        PageResult pageResult = new PageResult(res1,res1.size(),currentPage,pageSize);
-        return pageResult;
+        PageResult pageResult = new PageResult(res1,res1.size(),pageSize,currentPage);
+        return ResultGenerator.genSuccessResultData(pageResult);
     }
 
     @GetMapping("/level")
-    public PageResult getLevel(int adminId, @RequestParam int categoryLevel, @RequestParam int parentId,
+    public Result<PageResult> getLevel(int adminId, @RequestParam int categoryLevel, @RequestParam int parentId,
                                @RequestParam int currentPage, @RequestParam int pageSize) {
         QueryWrapper<Category> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("categoryLevel", categoryLevel)
                 .eq("parentId", parentId)
+                .eq("isDeleted", 0)
                 .orderByAsc("categoryID");
 
         List<Category> result = categoryService.list(queryWrapper);
-        PageResult pageResult = new PageResult(result,result.size(),currentPage,pageSize);
-
-        return pageResult;
+        PageResult pageResult = new PageResult(result,result.size(),pageSize,currentPage);
+        Result<PageResult> result1 = ResultGenerator.genSuccessResultData(pageResult);
+        return result1;
     }
 
     @GetMapping("/{id}")
@@ -94,7 +95,7 @@ public class CategoryController {
         if (flag) {
             result = ResultGenerator.genSuccessResult();
         } else {
-            result = ResultGenerator.genFailResult("Can not insert category");
+            result = ResultGenerator.genFailResult("Cannot insert category");
         }
         return result;
     }
