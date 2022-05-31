@@ -28,112 +28,116 @@ class HeartbeatAdminServerApplicationTests {
     @Autowired
     private LabelService labelService;
     @Test
-    void testGetById3(){
-        System.out.println(labelService.getById(1));
-    }
-
-
-
-    // category service test
-    // 业务层测试
-    @Autowired
-    private ICategoryService categoryService;
-
-    @Test
-    void testGetById2(){
-        System.out.println(categoryService.getById(1));
-    }
-
-
-    // category dao test
-    // 数据层测试
-    @Autowired
-    private CategoryDao categoryDao;
-
-    @Test
-    void testGetById(){
-        System.out.println(categoryDao.selectById(1));
-    }
-
-    @Test
-    void testSave(){
-        Category category = new Category();
-        category.setCategoryname("testaaa");
-        category.setCategorylevel(2);
-        category.setCategoryname("testbbb");
-        category.setCategoryrank(2);
-        category.setParentid(2);
-        category.setCreateuser(1);
-        for (int i = 0; i < 5; i++) {
-            categoryDao.insert(category);
-        }
+    void testTest(){
 
     }
-
-
-    @Test
-    void testUpdate(){
-        Category category = new Category();
-        category.setCategoryid(1);
-        category.setCategoryname("test_new");
-        category.setCategorylevel(3);
-        category.setCategoryname("testnew22");
-        category.setCategoryrank(3);
-        category.setParentid(3);
-        category.setCreateuser(1);
-        System.out.println(categoryDao.updateById(category));
-    }
-
-    @Test
-    void testDelete(){
-        System.out.println(categoryDao.deleteById(5));
-    }
-
-    @Test
-    void testGetAll(){
-        System.out.println(categoryDao.selectList(null));
-    }
-
 //    @Test
-//    void testGetPage(){
-//        IPage page = new Page(2,4);
-//        categoryDao.selectPage(page,null);
+//    void testGetById3(){
+//        System.out.println(labelService.getById(1));
+//    }
+//
+//
+//
+//    // category service test
+//    // 业务层测试
+//    @Autowired
+//    private ICategoryService categoryService;
+//
+//    @Test
+//    void testGetById2(){
+//        System.out.println(categoryService.getById(1));
+//    }
+//
+//
+//    // category dao test
+//    // 数据层测试
+//    @Autowired
+//    private CategoryDao categoryDao;
+//
+//    @Test
+//    void testGetById(){
+//        System.out.println(categoryDao.selectById(1));
+//    }
+//
+//    @Test
+//    void testSave(){
+//        Category category = new Category();
+//        category.setCategoryname("testaaa");
+//        category.setCategorylevel(2);
+//        category.setCategoryname("testbbb");
+//        category.setCategoryrank(2);
+//        category.setParentid(2);
+//        category.setCreateuser(1);
+//        for (int i = 0; i < 5; i++) {
+//            categoryDao.insert(category);
+//        }
 //
 //    }
-
-    @Test
-    void testGetBy(){
-        QueryWrapper<Category> qw = new QueryWrapper<>();
-        qw.like("categoryName","w2");
-        System.out.println(categoryDao.selectList(qw));
-    }
-
-    @Test
-    void testGetBy2(){
-        String name = "w2";
-        LambdaQueryWrapper<Category> qw = new LambdaQueryWrapper<Category>();
-        qw.like(name!=null,Category::getCategoryname,name);
-        System.out.println(categoryDao.selectList(qw));
-    }
-
-    // carousel
-    @Autowired
-    private CarouselDao carouselDao;
-
-    @Test
-    void testGetCarouselList(){
-        System.out.println(this.carouselDao.getCarouselList());
-    }
-
-    @Test
-    void testGetCarouselById(){
-        System.out.println(this.carouselDao.getCarouselById(3));
-    }
-
-    @Test
-    void testDeleteCarousel(){
-        System.out.println(this.carouselDao.deleteCarouselById(3));
-    }
+//
+//
+//    @Test
+//    void testUpdate(){
+//        Category category = new Category();
+//        category.setCategoryid(1);
+//        category.setCategoryname("test_new");
+//        category.setCategorylevel(3);
+//        category.setCategoryname("testnew22");
+//        category.setCategoryrank(3);
+//        category.setParentid(3);
+//        category.setCreateuser(1);
+//        System.out.println(categoryDao.updateById(category));
+//    }
+//
+//    @Test
+//    void testDelete(){
+//        System.out.println(categoryDao.deleteById(5));
+//    }
+//
+//    @Test
+//    void testGetAll(){
+//        System.out.println(categoryDao.selectList(null));
+//    }
+//
+////    @Test
+////    void testGetPage(){
+////        IPage page = new Page(2,4);
+////        categoryDao.selectPage(page,null);
+////
+////    }
+//
+//    @Test
+//    void testGetBy(){
+//        QueryWrapper<Category> qw = new QueryWrapper<>();
+//        qw.like("categoryName","w2");
+//        System.out.println(categoryDao.selectList(qw));
+//    }
+//
+//    @Test
+//    void testGetBy2(){
+//        String name = "w2";
+//        LambdaQueryWrapper<Category> qw = new LambdaQueryWrapper<Category>();
+//        qw.like(name!=null,Category::getCategoryname,name);
+//        System.out.println(categoryDao.selectList(qw));
+//    }
+//
+//    // carousel
+//    @Autowired
+//    private CarouselDao carouselDao;
+//
+//    @Test
+//    void testGetCarouselList(){
+//        System.out.println(this.carouselDao.getCarouselList());
+//    }
+//
+//    @Test
+//    void testGetCarouselById(){
+//        System.out.println(this.carouselDao.getCarouselById(3));
+//    }
+//
+//    @Test
+//    void testDeleteCarousel(){
+//        System.out.println(this.carouselDao.deleteCarouselById(3));
+//    }
 
 //    @Autowired
 //    private AdminDao adminDao;
