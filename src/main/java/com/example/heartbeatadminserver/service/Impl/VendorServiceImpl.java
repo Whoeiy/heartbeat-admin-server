@@ -50,7 +50,7 @@ public class VendorServiceImpl implements IVendorService{
 
         int totalPage = 1;
         if (count >= pageParam.getPageSize()){
-            totalPage = count / pageParam.getPageSize();
+            totalPage = count / pageParam.getPageSize() + 1;
         }
 
         PageResult pageResult = new PageResult();

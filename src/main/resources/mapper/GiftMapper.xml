@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.heartbeatadminserver.dao.GiftDao">
+    <resultMap id="CategoryIdsMap" type="com.example.heartbeatadminserver.service.pojo.GiftCategoryIds">
+        <result column="categoryID" jdbcType="INTEGER" property="second" />
+        <result column="parentId" jdbcType="INTEGER" property="first" />
+    </resultMap>
+    <resultMap id="BaseResultMap" type="com.example.heartbeatadminserver.entity.Gift">
+        <id column="giftId" jdbcType="INTEGER" property="giftId" />
+        <result column="giftName" jdbcType="VARCHAR" property="giftName" />
+        <result column="giftIntro" jdbcType="VARCHAR" property="giftIntro" />
+        <result column="originalPrice" jdbcType="DOUBLE" property="originalPrice" />
+        <result column="vipPrice" jdbcType="DOUBLE" property="vipPrice" />
+        <result column="stockNum" jdbcType="INTEGER" property="stockNum" />
+        <result column="giftThirdCategoryId" jdbcType="INTEGER" property="giftThirdCategoryId" />
+        <result column="giftLabelIdList" jdbcType="CLOB" property="giftLabelIdList" />
+        <result column="isShown" jdbcType="INTEGER" property="isShown" />
+        <result column="imgUrl" jdbcType="CLOB" property="imgUrl" />
+        <result column="giftDetail" jdbcType="CLOB" property="giftDetail" />
+        <result column="vendorId" jdbcType="INTEGER" property="vendorId" />
+        <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+        <result column="isDeleted" jdbcType="INTEGER" property="isDeleted" />
+    </resultMap>
+
+    <!--        List<Gift> getGiftList(String key, int vendorId);-->
+    <select id="getGiftList" resultMap="BaseResultMap">
+        select * from gift
+        <where>
+            isDeleted = 0
+            <if test="key != null"> and giftName like concat('%', #{key}, '%')</if>
+            <if test="vendorId != null">and vendorId = #{vendorId}</if>
+        </where>
+        order by giftId desc
+    </select>
+
+    <!--    Integer countTotalGift(String key, int vendorId);-->
+    <select id="countTotalGift" resultType="INTEGER">
+        select count(*) from gift
+        <where>
+            isDeleted = 0
+            <if test="key != null"> and giftName like concat('%', #{key}, '%')</if>
+            <if test="vendorId != null">and vendorId = #{vendorId}</if>
+        </where>
+    </select>
+
+    <!--    Gift getGiftById(Integer giftId);-->
+    <select id="getGiftById" resultType="com.example.heartbeatadminserver.entity.Gift">
+        select * from gift
+        where isDeleted = 0 and giftId = #{giftId}
+    </select>
+
+    <!--List<Category> getGiftCategoriesByIds(@Param("ids") List<Integer> ids);-->
+    <select id="getGiftCategoriesByIds" resultType="com.example.heartbeatadminserver.entity.Category">
+        select * from category
+        where categoryID in (
+            <foreach collection="ids" item="id" separator=",">
+                #{id}
+            </foreach>
+            )
+    </select>
+
+    <!--        GiftCategoryIds getCategoriesIds(Integer third);-->
+    <select id="getCategoriesIds" resultMap="CategoryIdsMap">
+        select categoryID, parentId from category
+        where categoryID in (
+            select parentId from category
+            where categoryID = #{third}
+            )
+    </select>
+
+<!--    List<Labels> getGiftLabelsByIds(@Param("ids") List<Integer> ids);-->
+    <select id="getGiftLabelsByIds" resultType="com.example.heartbeatadminserver.entity.Label">
+        select * from label
+        where labelID in (
+            <foreach collection="ids" item="id" separator=",">
+                #{id}
+            </foreach>
+            )
+    </select>
+    <insert id="insertGift" parameterType="com.example.heartbeatadminserver.entity.Gift">
+        insert into gift
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="giftName != null">
+                giftName,
+            </if>
+            <if test="giftIntro != null">
+                giftIntro,
+            </if>
+            <if test="originalPrice != null">
+                originalPrice,
+            </if>
+            <if test="vipPrice != null">
+                vipPrice,
+            </if>
+            <if test="stockNum != null">
+                stockNum,
+            </if>
+            <if test="giftThirdCategoryId != null">
+                giftThirdCategoryId,
+            </if>
+            <if test="giftLabelIdList != null">
+                giftLabelIdList,
+            </if>
+            <if test="isShown != null">
+                isShown,
+            </if>
+            <if test="imgUrl != null">
+                imgUrl,
+            </if>
+            <if test="giftDetail != null">
+                giftDetail,
+            </if>
+            <if test="vendorId != null">
+                vendorID,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="isDeleted != null">
+                isDeleted,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <!--            <if test="vendorId != null">-->
+            <!--                #{vendorId, jdbcType=INTEGER},-->
+            <!--            </if>-->
+            <if test="giftName != null">
+                #{giftName, jdbcType=VARCHAR},
+            </if>
+            <if test="giftIntro != null">
+                #{giftIntro, jdbcType=VARCHAR},
+            </if>
+            <if test="originalPrice != null">
+                #{originalPrice, jdbcType=DOUBLE},
+            </if>
+            <if test="vipPrice != null">
+                #{vipPrice, jdbcType=DOUBLE},
+            </if>
+            <if test="stockNum != null">
+                #{stockNum, jdbcType=INTEGER},
+            </if>
+            <if test="giftThirdCategoryId != null">
+                #{giftThirdCategoryId, jdbcType=INTEGER},
+            </if>
+            <if test="giftLabelIdList != null">
+                #{giftLabelIdList, jdbcType=CLOB},
+            </if>
+            <if test="isShown != null">
+                #{isShown, jdbcType=INTEGER},
+            </if>
+            <if test="imgUrl != null">
+                #{imgUrl, jdbcType=CLOB},
+            </if>
+            <if test="giftDetail != null">
+                #{giftDetail, jdbcType=CLOB},
+            </if>
+            <if test="vendorId != null">
+                #{vendorId, jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime, jdbcType=TIMESTAMP},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted, jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+    <!--    Integer updateGift(Gift gift);-->
+    <update id="updateGift" parameterType="com.example.heartbeatadminserver.entity.Gift">
+        update gift
+        <set>
+            <if test="giftName != null">
+                giftName = #{giftName, jdbcType=VARCHAR},
+            </if>
+            <if test="giftIntro != null">
+                giftIntro = #{giftIntro, jdbcType=VARCHAR},
+            </if>
+            <if test="originalPrice != null">
+                originalPrice = #{originalPrice, jdbcType=DOUBLE},
+            </if>
+            <if test="vipPrice != null">
+                vipPrice = #{vipPrice, jdbcType=DOUBLE},
+            </if>
+            <if test="stockNum != null">
+                stockNum = #{stockNum, jdbcType=INTEGER},
+            </if>
+            <if test="giftThirdCategoryId != null">
+                giftThirdCategoryId = #{giftThirdCategoryId, jdbcType=INTEGER},
+            </if>
+            <if test="giftLabelIdList != null">
+                giftLabelIdList = #{giftLabelIdList, jdbcType=CLOB},
+            </if>
+            <if test="isShown != null">
+                isShown = #{isShown, jdbcType=INTEGER},
+            </if>
+            <if test="imgUrl != null">
+                imgUrl = #{imgUrl, jdbcType=CLOB},
+            </if>
+            <if test="giftDetail != null">
+                giftDetail = #{giftDetail, jdbcType=CLOB},
+            </if>
+            <if test="vendorId != null">
+                vendorId = #{vendorId, jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime, jdbcType=TIMESTAMP},
+            </if>
+            updateTime = now(),
+            <if test="isDeleted != null">
+                isDeleted = #{isDeleted, jdbcType=INTEGER},
+            </if>
+        </set>
+        where giftId = #{giftId, jdbcType=INTEGER}
+    </update>
+    <!--    Integer updateGiftIsShownById(Integer giftId, Integer showStatus);-->
+    <update id="updateGiftIsShownById">
+        update gift
+        set isShown = #{showStatus, jdbcType=INTEGER}, updateTime = now()
+        where giftId = #{giftId}
+    </update>
+</mapper>
