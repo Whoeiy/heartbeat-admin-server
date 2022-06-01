@@ -13,12 +13,15 @@ import com.example.heartbeatadminserver.entity.AdminToken;
 import com.example.heartbeatadminserver.entity.Category;
 import com.example.heartbeatadminserver.entity.Vendor;
 import com.example.heartbeatadminserver.service.ICategoryService;
+import com.example.heartbeatadminserver.service.IGiftService;
+import com.example.heartbeatadminserver.service.Impl.GiftServiceImpl;
 import com.example.heartbeatadminserver.service.LabelService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -204,5 +207,23 @@ class HeartbeatAdminServerApplicationTests {
 //    void testDeleteVendorById(){
 //        System.out.println(vendorDao.deleteVendorById(5));
 //    }
+
+//    @Autowired
+//    private GiftServiceImpl giftService;
+//    @Test
+//    void testGetCategories(){
+//        System.out.println(this.giftService.getCategoryIds(51));
+//    }
+//
+//    @Test
+//    void testGetCategoriesDetail(){
+//        System.out.println(this.giftService.getGiftCategories(5));
+//    }
+//
+//    @Test
+//    void testGetLabelsDetail(){
+//        System.out.println(this.giftService.getGiftLabels(6));
+//    }
+
 
 }
