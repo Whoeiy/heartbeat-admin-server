@@ -31,5 +31,8 @@ public class WebMvcConfig extends WebMvcConfigurationSupport {
                 "classpath:/META-INF/resources/");
         registry.addResourceHandler("/webjars/**").addResourceLocations(
                 "classpath:/META-INF/resources/webjars/");
+        // 文件访问路径的映射, 路径最后必须有"/"
+        registry.addResourceHandler("/upload/**").addResourceLocations("file:/opt/hb/upload/");    // 服务器
+//        registry.addResourceHandler("/upload/**").addResourceLocations("file:/Users/jennifer/desktop/upload/");
     }
 }

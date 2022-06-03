@@ -54,4 +54,4 @@ pagehelper:
 # 文件上传
 file:
   local_path: /Users/jennifer/Desktop/upload
-  server_path: /opt/hb/upload/
+  server_path: /opt/hb/upload
