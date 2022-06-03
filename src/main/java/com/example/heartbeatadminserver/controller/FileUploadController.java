@@ -40,6 +40,9 @@ public class FileUploadController {
             return ResultGenerator.genFailResult("文件不能为空");
         }
         String originalName = file.getOriginalFilename();
+        if (!(originalName.endsWith(".png") || originalName.endsWith(".jpeg") || originalName.endsWith(".jpg"))){
+            return ResultGenerator.genFailResult("上传文件失败,文件格式不支持");
+        }
         File file1 = new File(path);
         if (!file1.exists()) {
             file1.mkdirs();
@@ -89,32 +92,4 @@ public class FileUploadController {
         }
         return ResultGenerator.genSuccessResultData(temp.substring(0, temp.length() - 1));
     }
-
-//    @PostMapping("file")
-//    public Map<String, Object> fileUpload(MultipartFile file, HttpServletRequest req) {
-//        Map<String, Object> result = new HashMap<>();
-//        String originalFilename = file.getOriginalFilename();
-//        if (!originalFilename.endsWith(".png")) {
-//            result.put("status", "error");
-//            result.put("msg", "文件类型需为png结尾");
-//            return result;
-//        }
-//        String format = sdf.format(new Date());
-//        String realpath = req.getServletContext().getRealPath("/") + format;
-//        File folder = new File(realpath);
-//        if(!folder.exists()){
-//            folder.mkdir();
-//        }
-//        String newName = UUID.randomUUID().toString() + ".png";
-//        try {
-//            file.transferTo(new File(folder,newName));
-//            String url = req.getScheme() + "://" + req.getServerName() + ":" + req.getServerPort() + format + newName;
-//            result.put("status","success");
-//            result.put("url",url);
-//        } catch (IOException e) {
-//            result.put("status", "error");
-//            result.put("msg", e.getMessage());
-//        }
-//        return result;
-//    }
 }
