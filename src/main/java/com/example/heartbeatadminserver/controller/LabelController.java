@@ -3,7 +3,9 @@ package com.example.heartbeatadminserver.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.example.heartbeatadminserver.entity.Category;
 import com.example.heartbeatadminserver.entity.Label;
+import com.example.heartbeatadminserver.entity.LabelNew;
 import com.example.heartbeatadminserver.service.ICategoryService;
+import com.example.heartbeatadminserver.service.LabelNewService;
 import com.example.heartbeatadminserver.service.LabelService;
 import com.example.heartbeatadminserver.util.PageResult;
 import com.example.heartbeatadminserver.util.Result;
@@ -19,17 +21,17 @@ import java.util.List;
 @RequestMapping("/admin/label")
 public class LabelController {
     @Autowired
-    private LabelService labelService;
+    private LabelNewService labelNewService;
 
 
 
     @GetMapping
     public Result<PageResult> getAll(int adminId, @RequestParam int currentPage, @RequestParam int pageSize){
-        QueryWrapper<Label> queryWrapper = new QueryWrapper<>();
+        QueryWrapper<LabelNew> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("isDeleted", 0)
                 .orderByDesc("labelRank")
                 .orderByAsc("labelID");
-        List<Label> res1 = labelService.list(queryWrapper);
+        List<LabelNew> res1 = labelNewService.list(queryWrapper);
         PageResult pageResult = new PageResult(res1,res1.size(),pageSize,currentPage);
         return ResultGenerator.genSuccessResultData(pageResult);
     }
@@ -50,7 +52,7 @@ public class LabelController {
 //
     @GetMapping("/{id}")
     public Result getById(@PathVariable Integer id){
-        Label label = labelService.getById(id);
+        LabelNew label = labelNewService.getById(id);
         Result res;
         if(label == null){
             res = ResultGenerator.genFailResult("This id is not exist");
@@ -67,11 +69,11 @@ public class LabelController {
 //
     //更新label
     @PutMapping
-    public Result updateLabelInfo(int adminId, @RequestBody Label label) {
+    public Result updateLabelInfo(int adminId, @RequestBody LabelNew label) {
         java.util.Date date = new Date();
         Timestamp t = new Timestamp(date.getTime());
         label.setUpdatetime(t);
-        boolean flag = labelService.updateById(label);
+        boolean flag = labelNewService.updateById(label);
         Result result;
         if (flag) {
             result = ResultGenerator.genSuccessResult();
@@ -81,13 +83,28 @@ public class LabelController {
         return result;
     }
 
+    @GetMapping("/level")
+    public Result<PageResult> getLevel(int adminId, @RequestParam int labelLevel, @RequestParam int parentId,
+                                       @RequestParam int currentPage, @RequestParam int pageSize) {
+        QueryWrapper<LabelNew> queryWrapper = new QueryWrapper<>();
+        queryWrapper.eq("labelLevel", labelLevel)
+                .eq("parentId", parentId)
+                .eq("isDeleted", 0)
+                .orderByAsc("labelID");
+
+        List<LabelNew> result = labelNewService.list(queryWrapper);
+        PageResult pageResult = new PageResult(result,result.size(),pageSize,currentPage);
+        Result<PageResult> result1 = ResultGenerator.genSuccessResultData(pageResult);
+        return result1;
+    }
+
     // 增加label
     @PostMapping
-    public Result insertLabel(int adminId, @RequestBody Label label) {
+    public Result insertLabel(int adminId, @RequestBody LabelNew label) {
         java.util.Date date = new Date();
         Timestamp t = new Timestamp(date.getTime());
         label.setCreatetime(t);
-        boolean flag = labelService.save(label);
+        boolean flag = labelNewService.save(label);
         Result result;
         if (flag) {
             result = ResultGenerator.genSuccessResult();
@@ -100,13 +117,13 @@ public class LabelController {
     // 删除label
     @DeleteMapping("/{id}")
     public Result deleteCategory(int adminId, @PathVariable Integer id) {
-        Label label = labelService.getById(id);
+        LabelNew label = labelNewService.getById(id);
         label.setIsdeleted(1);
         java.util.Date date = new Date();
         Timestamp t = new Timestamp(date.getTime());
         label.setUpdatetime(t);
         Result result;
-        boolean flag = labelService.updateById(label);
+        boolean flag = labelNewService.updateById(label);
         if(flag){
             result = ResultGenerator.genSuccessResult();
 
