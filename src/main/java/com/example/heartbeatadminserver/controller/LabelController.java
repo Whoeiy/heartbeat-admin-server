@@ -28,7 +28,8 @@ public class LabelController {
     @GetMapping
     public Result<PageResult> getAll(int adminId, @RequestParam int currentPage, @RequestParam int pageSize){
         QueryWrapper<LabelNew> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("isDeleted", 0)
+        queryWrapper.eq("labelLevel", 1)
+                .eq("isDeleted", 0)
                 .orderByDesc("labelRank")
                 .orderByAsc("labelID");
         List<LabelNew> res1 = labelNewService.list(queryWrapper);
@@ -90,6 +91,7 @@ public class LabelController {
         queryWrapper.eq("labelLevel", labelLevel)
                 .eq("parentId", parentId)
                 .eq("isDeleted", 0)
+                .orderByDesc("labelRank")
                 .orderByAsc("labelID");
 
         List<LabelNew> result = labelNewService.list(queryWrapper);

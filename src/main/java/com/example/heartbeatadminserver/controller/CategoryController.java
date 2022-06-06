@@ -43,6 +43,7 @@ public class CategoryController {
         queryWrapper.eq("categoryLevel", categoryLevel)
                 .eq("parentId", parentId)
                 .eq("isDeleted", 0)
+                .orderByDesc("categoryRank")
                 .orderByAsc("categoryID");
 
         List<Category> result = categoryService.list(queryWrapper);
