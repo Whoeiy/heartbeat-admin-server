@@ -4,10 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.example.heartbeatadminserver.dao.AdminDao;
-import com.example.heartbeatadminserver.dao.CarouselDao;
-import com.example.heartbeatadminserver.dao.CategoryDao;
-import com.example.heartbeatadminserver.dao.VendorDao;
+import com.example.heartbeatadminserver.dao.*;
 import com.example.heartbeatadminserver.entity.Admin;
 import com.example.heartbeatadminserver.entity.AdminToken;
 import com.example.heartbeatadminserver.entity.Category;
@@ -224,6 +221,14 @@ class HeartbeatAdminServerApplicationTests {
 //    void testGetLabelsDetail(){
 //        System.out.println(this.giftService.getGiftLabels(6));
 //    }
+
+    @Autowired
+    private IndexConfigDao indexConfigDao;
+
+    @Test
+    void testGetList() {
+        System.out.println(this.indexConfigDao.gitIndexConfigListByType(2));
+    }
 
 
 }

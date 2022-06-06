@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.heartbeatadminserver.dao.IndexConfigDao">
+    <resultMap id="BaseResultMap" type="com.example.heartbeatadminserver.entity.IndexConfig">
+        <id column="configId" jdbcType="INTEGER" property="configId" />
+        <result column="configName" jdbcType="VARCHAR" property="configName" />
+        <result column="configType" jdbcType="INTEGER" property="configType" />
+        <result column="giftId" jdbcType="INTEGER" property="giftId" />
+        <result column="redirectUrl" jdbcType="CLOB" property="redirectUrl" />
+        <result column="configRank" jdbcType="INTEGER" property="configRank" />
+        <result column="isDeleted" jdbcType="INTEGER" property="isDeleted" />
+        <result column="createTime" jdbcType="TIMESTAMP" property="createTime" />
+        <result column="createUser" jdbcType="INTEGER" property="createUser" />
+        <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime" />
+    </resultMap>
+<!--    List<IndexConfig> gitIndexConfigListByType(Integer type);-->
+    <select id="gitIndexConfigListByType" parameterType="INTEGER" resultMap="BaseResultMap">
+        select * from config
+        where isDeleted = 0 and configType = #{type}
+        order by configRank desc, configId asc
+    </select>
+<!--    Integer countTotalIndexConfig(Integer type);-->
+    <select id="countTotalIndexConfig" parameterType="INTEGER" resultType="INTEGER">
+        select count(*) from config
+        where isDeleted = 0 and configType = #{type}
+    </select>
+<!--    IndexConfig getIndexConfigById(Integer configId);-->
+    <select id="getIndexConfigById" parameterType="INTEGER" resultType="com.example.heartbeatadminserver.entity.IndexConfig">
+        select * from config
+        where isDeleted = 0 and configId = #{configId}
+    </select>
+    <!--    Integer insertIndexConfig(IndexConfig indexConfig);-->
+    <insert id="insertIndexConfig" parameterType="com.example.heartbeatadminserver.entity.IndexConfig">
+        insert into config
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="configName != null">
+                configName,
+            </if>
+            <if test="configType != null">
+                configType,
+            </if>
+            <if test="giftId != null">
+                giftId,
+            </if>
+            <if test="redirectUrl != null">
+                redirectUrl,
+            </if>
+            <if test="configRank != null">
+                configRank,
+            </if>
+            <if test="isDeleted != null">
+                isDeleted,
+            </if>
+            <if test="createTime != null">
+                createTime,
+            </if>
+            <if test="createUser != null">
+                createUser,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <!--            <if test="vendorId != null">-->
+            <!--                #{vendorId, jdbcType=INTEGER},-->
+            <!--            </if>-->
+            <if test="configName != null">
+                #{configName, jdbcType=VARCHAR},
+            </if>
+            <if test="configType != null">
+                #{configType, jdbcType=INTEGER},
+            </if>
+            <if test="giftId != null">
+                #{giftId, jdbcType=INTEGER},
+            </if>
+            <if test="redirectUrl != null">
+                #{redirectUrl, jdbcType=CLOB},
+            </if>
+            <if test="configRank != null">
+                #{configRank, jdbcType=INTEGER},
+            </if>
+            <if test="isDeleted != null">
+                #{isDeleted, jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                #{createTime, jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                #{createUser, jdbcType=INTEGER},
+            </if>
+        </trim>
+    </insert>
+
+<!--    Integer updateIndexConfig(IndexConfig indexConfig);-->
+    <update id="updateIndexConfig" parameterType="com.example.heartbeatadminserver.entity.IndexConfig">
+        update config
+        <set>
+            <if test="configName != null">
+                configName = #{configName, jdbcType=VARCHAR},
+            </if>
+            <if test="configType != null">
+                configType = #{configType, jdbcType=INTEGER},
+            </if>
+            <if test="giftId != null">
+                giftId = #{giftId, jdbcType=INTEGER},
+            </if>
+            <if test="redirectUrl != null">
+                redirectUrl = #{redirectUrl, jdbcType=CLOB},
+            </if>
+            <if test="configRank != null">
+                configRank = #{configRank, jdbcType=INTEGER},
+            </if>
+            <if test="isDeleted != null">
+                isDeleted = #{isDeleted, jdbcType=INTEGER},
+            </if>
+            <if test="createTime != null">
+                createTime = #{createTime, jdbcType=TIMESTAMP},
+            </if>
+            <if test="createUser != null">
+                createUser = #{createUser, jdbcType=INTEGER},
+            </if>
+            updateTime = now(),
+        </set>
+        where configId = #{configId, jdbcType=INTEGER}
+    </update>
+<!--    Integer deleteIndexConfig(Integer configId);-->
+    <update id="deleteIndexConfig">
+        update config set isDeleted = 1, updateTime = now()
+        where configId = #{configId, jdbcType=INTEGER}
+    </update>
+</mapper>
