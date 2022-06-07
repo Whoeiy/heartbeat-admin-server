@@ -2,6 +2,7 @@ package com.example.heartbeatadminserver.controller;
 
 import com.example.heartbeatadminserver.common.ServiceResultEnum;
 import com.example.heartbeatadminserver.controller.param.VendorAddParam;
+import com.example.heartbeatadminserver.controller.vo.VendorVo;
 import com.example.heartbeatadminserver.entity.Vendor;
 import com.example.heartbeatadminserver.service.Impl.VendorServiceImpl;
 import com.example.heartbeatadminserver.util.*;
@@ -96,6 +97,17 @@ public class VendorController {
             return ResultGenerator.genSuccessResult(res);
         }
         return ResultGenerator.genFailResult(res);
+    }
+
+    @GetMapping("/vendor/profile")
+    @ApiOperation("查询商家信息")
+    public Result<VendorVo> getVendorProfile(int adminId) {
+        Vendor vendor = this.vendorService.queryVendorById(adminId);
+        if (vendor != null) {
+            VendorVo vendorVo = new VendorVo(vendor.getVendorId(), vendor.getNameEn());
+            return ResultGenerator.genSuccessResultData(vendorVo);
+        }
+        return ResultGenerator.genFailResult("未查询到该商家");
     }
 
 }

@@ -84,7 +84,7 @@ public class LabelController {
         return result;
     }
 
-    @GetMapping("/level")
+    @GetMapping("/labelLevel")
     public Result<PageResult> getLevel(int adminId, @RequestParam int labelLevel, @RequestParam int parentId,
                                        @RequestParam int currentPage, @RequestParam int pageSize) {
         QueryWrapper<LabelNew> queryWrapper = new QueryWrapper<>();
