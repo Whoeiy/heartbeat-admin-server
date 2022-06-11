@@ -58,9 +58,9 @@ public class IndexConfigController {
         return ResultGenerator.genFailResult(res);
     }
 
-    @DeleteMapping("/indexConfig")
+    @DeleteMapping("/indexConfig/{configId}")
     @ApiOperation("/删除礼物配置")
-    public Result<String> deleteIndexConfig(@RequestParam Integer configId, int adminId) {
+    public Result<String> deleteIndexConfig(@PathVariable Integer configId, int adminId) {
         String res = this.indexConfig.deleteIndexConfig(configId);
         if (res.equals(ServiceResultEnum.SUCCESS.getResult())) {
             return ResultGenerator.genSuccessResult(res);
