@@ -14,4 +14,6 @@ public interface IAdminService {
 
     public Admin getAdminById(Integer adminId);
 
+    String adminLogout(Integer adminId);
+
 }

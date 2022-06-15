@@ -1,6 +1,7 @@
 package com.example.heartbeatadminserver.controller;
 
 
+import com.example.heartbeatadminserver.common.ServiceResultEnum;
 import com.example.heartbeatadminserver.controller.param.AdminLoginParam;
 import com.example.heartbeatadminserver.entity.Admin;
 import com.example.heartbeatadminserver.service.Impl.AdminServiceImpl;
@@ -61,6 +62,16 @@ public class AdminController {
         admin.setName(name);
         admin.setAdminID(adminId);
         return ResultGenerator.genSuccessResultData(admin);
+    }
+
+    @DeleteMapping("/logout")
+    @ApiOperation("/用户登出")
+    public Result<String> adminLogout(Integer adminId) {
+        String res = this.adminService.adminLogout(adminId);
+        if (res.equals(ServiceResultEnum.SUCCESS.getResult())) {
+            return ResultGenerator.genSuccessResult("登出成功");
+        }
+        return ResultGenerator.genFailResult(ServiceResultEnum.DB_ERROR.getResult());
     }
 
 }

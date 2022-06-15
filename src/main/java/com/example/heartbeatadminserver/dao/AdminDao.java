@@ -15,4 +15,6 @@ public interface AdminDao {
     public int insertToken(AdminToken adminToken);
 
     public int updateToken(AdminToken adminToken);
+
+    Integer deleteAdminToken(Integer adminId);
 }

@@ -29,4 +29,10 @@
         update admin_token
         set token = #{token, jdbcType=CLOB} where adminID=#{adminId}
     </update>
+
+    <!--    Integer deleteAdminToken(Integer adminId);-->
+    <delete id="deleteAdminToken" parameterType="INTEGER">
+        delete from admin_token
+        where adminID = #{adminId, jdbcType=INTEGER}
+    </delete>
 </mapper>

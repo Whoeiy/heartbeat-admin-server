@@ -1,5 +1,6 @@
 package com.example.heartbeatadminserver.service.Impl;
 
+import com.example.heartbeatadminserver.common.ServiceResultEnum;
 import com.example.heartbeatadminserver.dao.AdminDao;
 import com.example.heartbeatadminserver.dao.VendorDao;
 import com.example.heartbeatadminserver.entity.Admin;
@@ -59,5 +60,13 @@ public class AdminServiceImpl implements IAdminService {
     public Admin getAdminById(Integer adminId) {
         Admin admin = this.adminDao.getAdminById(adminId);
         return admin;
+    }
+
+    @Override
+    public String adminLogout(Integer adminId) {
+        if (this.adminDao.deleteAdminToken(adminId) > 0) {
+            return ServiceResultEnum.SUCCESS.getResult();
+        }
+        return ServiceResultEnum.DB_ERROR.getResult();
     }
 }
