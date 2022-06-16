@@ -71,7 +71,7 @@ public class AdminController {
         if (res.equals(ServiceResultEnum.SUCCESS.getResult())) {
             return ResultGenerator.genSuccessResult("登出成功");
         }
-        return ResultGenerator.genFailResult(ServiceResultEnum.DB_ERROR.getResult());
+        return ResultGenerator.genSuccessResult(ServiceResultEnum.DB_ERROR.getResult());
     }
 
 }
