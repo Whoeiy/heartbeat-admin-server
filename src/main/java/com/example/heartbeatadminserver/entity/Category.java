@@ -30,6 +30,7 @@ public class Category implements Serializable {
      * 
      */
     private String categoryname;
+    private String categoryicon;
 
     /**
      * 

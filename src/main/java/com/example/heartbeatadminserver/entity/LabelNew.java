@@ -30,6 +30,7 @@ public class LabelNew implements Serializable {
      * 
      */
     private String labelname;
+    private String labelicon;
 
     /**
      * 
