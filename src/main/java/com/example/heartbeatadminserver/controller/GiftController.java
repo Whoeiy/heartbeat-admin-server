@@ -37,12 +37,14 @@ public class GiftController {
 
     @GetMapping("/gift")
     @ApiOperation("/查询礼物列表")
-    public Result<PageResult> getGiftList(@RequestParam int pageNum, @RequestParam int pageSize, String keyword, Integer vendorId, int adminId) {
+    public Result<PageResult> getGiftList(@RequestParam int pageNum, @RequestParam int pageSize, String keyword, @RequestParam Integer vendorId, int adminId) {
         PageParam pageParam = new PageParam();
         pageParam.setPageNum(pageNum);
         pageParam.setPageSize(pageSize);
         String key = keyword;
-
+        if (vendorId == 1) {
+            vendorId = null;
+        }
         PageResult pageResult = this.giftService.getGiftListPaged(key, vendorId, pageParam);
         Result<PageResult> result = ResultGenerator.genSuccessResultData(pageResult);
 
