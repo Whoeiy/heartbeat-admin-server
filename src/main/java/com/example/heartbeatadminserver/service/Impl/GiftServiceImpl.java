@@ -109,7 +109,7 @@ public class GiftServiceImpl implements IGiftService {
 
     public List<Label> getGiftLabels(Gift gift) {
         String labelids = gift.getGiftLabelIdList();
-        if (labelids == null) {
+        if (labelids == null || labelids.length()<=0) {
             return null;
         }
         String[] temp = labelids.split(",");
