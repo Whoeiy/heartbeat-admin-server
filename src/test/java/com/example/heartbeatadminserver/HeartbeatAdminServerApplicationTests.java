@@ -5,10 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.heartbeatadminserver.dao.*;
-import com.example.heartbeatadminserver.entity.Admin;
-import com.example.heartbeatadminserver.entity.AdminToken;
-import com.example.heartbeatadminserver.entity.Category;
-import com.example.heartbeatadminserver.entity.Vendor;
+import com.example.heartbeatadminserver.entity.*;
 import com.example.heartbeatadminserver.service.ICategoryService;
 import com.example.heartbeatadminserver.service.IGiftService;
 import com.example.heartbeatadminserver.service.Impl.GiftServiceImpl;
@@ -225,9 +222,20 @@ class HeartbeatAdminServerApplicationTests {
     @Autowired
     private IndexConfigDao indexConfigDao;
 
+    @Autowired GiftDao giftDao;
+
     @Test
     void testGetList() {
         System.out.println(this.indexConfigDao.gitIndexConfigListByType(2));
+    }
+
+    @Test
+    void testGetLabels() {
+        List<Integer> ids = new ArrayList<>();
+        ids.add(38);
+        System.out.println(ids);
+        List<Label> labels = this.giftDao.getGiftLabelsByIds(ids);
+        System.out.println(labels);
     }
 
 

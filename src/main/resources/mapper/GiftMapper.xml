@@ -73,7 +73,7 @@
 
 <!--    List<Labels> getGiftLabelsByIds(@Param("ids") List<Integer> ids);-->
     <select id="getGiftLabelsByIds" resultType="com.example.heartbeatadminserver.entity.Label">
-        select * from label
+        select * from label_new
         where labelID in (
             <foreach collection="ids" item="id" separator=",">
                 #{id}
