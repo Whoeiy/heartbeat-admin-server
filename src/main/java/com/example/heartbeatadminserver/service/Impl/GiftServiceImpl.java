@@ -5,6 +5,7 @@ import com.example.heartbeatadminserver.dao.GiftDao;
 import com.example.heartbeatadminserver.entity.*;
 import com.example.heartbeatadminserver.service.IGiftService;
 import com.example.heartbeatadminserver.service.pojo.GiftCategoryIds;
+import com.example.heartbeatadminserver.service.pojo.GiftLabelsIds;
 import com.example.heartbeatadminserver.util.PageParam;
 import com.example.heartbeatadminserver.util.PageResult;
 import com.github.pagehelper.PageHelper;
@@ -86,7 +87,7 @@ public class GiftServiceImpl implements IGiftService {
             return null;
         }
         List<Category> categories = this.getGiftCategories(gift);
-        List<Label> labels = this.getGiftLabels(gift);
+        List<List<LabelNew>> labels = this.getGiftLabels(gift);
         return new GiftDetail(gift, categories, labels);
     }
 
@@ -107,18 +108,33 @@ public class GiftServiceImpl implements IGiftService {
         return temp;
     }
 
-    public List<Label> getGiftLabels(Gift gift) {
-        String labelids = gift.getGiftLabelIdList();
-        if (labelids == null || labelids.length()<=0) {
+    public List<List<LabelNew>> getGiftLabels(Gift gift) {
+        String labelIds = gift.getGiftLabelIdList();
+        if (labelIds == null || labelIds.length()<=0) {
             return null;
         }
-        String[] temp = labelids.split(",");
+        String[] temp = labelIds.split(",");
         List<Integer> ids = new ArrayList<>();
         for (int i = 0; i < temp.length; i++) {
             ids.add(Integer.parseInt(temp[i]));
         }
-        System.out.println(ids);
-        List<Label> labels = this.giftDao.getGiftLabelsByIds(ids);
+        List<List<LabelNew>> labels = new ArrayList<>();
+        for(int id : ids) {
+            List<Integer> levelIds = this.getLabelLevelIds(id);
+            List<LabelNew> labelNewList = this.giftDao.getGiftLabelsByIds(levelIds);
+            labels.add(labelNewList);
+        }
+
         return labels;
+    }
+
+    public List<Integer> getLabelLevelIds(Integer third){
+        GiftLabelsIds temp = this.giftDao.getLabelsIds(third);
+        temp.setThird(third);
+        List<Integer> ids = new ArrayList<>();
+        ids.add(temp.getFirst());
+        ids.add(temp.getSecond());
+        ids.add(temp.getThird());
+        return ids;
     }
 }

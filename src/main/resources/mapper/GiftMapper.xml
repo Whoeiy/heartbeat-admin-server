@@ -7,6 +7,12 @@
         <result column="categoryID" jdbcType="INTEGER" property="second" />
         <result column="parentId" jdbcType="INTEGER" property="first" />
     </resultMap>
+
+    <resultMap id="LabelIdsMap" type="com.example.heartbeatadminserver.service.pojo.GiftLabelsIds">
+        <result column="labelID" jdbcType="INTEGER" property="second"/>
+        <result column="parentId" jdbcType="INTEGER" property="first"/>
+    </resultMap>
+
     <resultMap id="BaseResultMap" type="com.example.heartbeatadminserver.entity.Gift">
         <id column="giftId" jdbcType="INTEGER" property="giftId" />
         <result column="giftName" jdbcType="VARCHAR" property="giftName" />
@@ -72,7 +78,7 @@
     </select>
 
 <!--    List<Labels> getGiftLabelsByIds(@Param("ids") List<Integer> ids);-->
-    <select id="getGiftLabelsByIds" resultType="com.example.heartbeatadminserver.entity.Label">
+    <select id="getGiftLabelsByIds" resultType="com.example.heartbeatadminserver.entity.LabelNew">
         select * from label_new
         where labelID in (
             <foreach collection="ids" item="id" separator=",">
@@ -80,6 +86,16 @@
             </foreach>
             )
     </select>
+
+<!--    GiftLabelsIds getLabelsIds(Integer third);-->
+    <select id="getLabelsIds" resultMap="LabelIdsMap">
+        select labelID, parentId from label_new
+        where labelID in (
+            select parentId from label_new
+            where labelID = #{third}
+            )
+    </select>
+
     <insert id="insertGift" parameterType="com.example.heartbeatadminserver.entity.Gift">
         insert into gift
         <trim prefix="(" suffix=")" suffixOverrides=",">

@@ -3,7 +3,9 @@ package com.example.heartbeatadminserver.dao;
 import com.example.heartbeatadminserver.entity.Category;
 import com.example.heartbeatadminserver.entity.Gift;
 import com.example.heartbeatadminserver.entity.Label;
+import com.example.heartbeatadminserver.entity.LabelNew;
 import com.example.heartbeatadminserver.service.pojo.GiftCategoryIds;
+import com.example.heartbeatadminserver.service.pojo.GiftLabelsIds;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -37,6 +39,9 @@ public interface GiftDao {
     GiftCategoryIds getCategoriesIds(Integer third);
 
     // 查询礼物标签信息
-    List<Label> getGiftLabelsByIds(@Param("ids") List<Integer> ids);
+    List<LabelNew> getGiftLabelsByIds(@Param("ids") List<Integer> ids);
+
+    // 查询礼物标签列表
+    GiftLabelsIds getLabelsIds(Integer third);
 
 }

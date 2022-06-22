@@ -229,14 +229,5 @@ class HeartbeatAdminServerApplicationTests {
         System.out.println(this.indexConfigDao.gitIndexConfigListByType(2));
     }
 
-    @Test
-    void testGetLabels() {
-        List<Integer> ids = new ArrayList<>();
-        ids.add(38);
-        System.out.println(ids);
-        List<Label> labels = this.giftDao.getGiftLabelsByIds(ids);
-        System.out.println(labels);
-    }
-
 
 }

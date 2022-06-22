@@ -12,5 +12,5 @@ public class GiftDetail {
 
     private List<Category> categories;
 
-    private List<Label> labels;
+    private List<List<LabelNew>> labels;
 }
