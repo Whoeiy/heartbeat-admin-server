@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.heartbeatadminserver.dao.CustomServiceMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.heartbeatadminserver.entity.CustomService">
+            <id property="serviceid" column="serviceId" jdbcType="INTEGER"/>
+            <result property="servicename" column="serviceName" jdbcType="VARCHAR"/>
+            <result property="sampleimg" column="sampleImg" jdbcType="VARCHAR"/>
+            <result property="servicetype" column="serviceType" jdbcType="INTEGER"/>
+            <result property="showrank" column="showRank" jdbcType="INTEGER"/>
+            <result property="isshown" column="isShown" jdbcType="INTEGER"/>
+            <result property="vendorid" column="vendorId" jdbcType="INTEGER"/>
+            <result property="isdeleted" column="isDeleted" jdbcType="INTEGER"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        serviceId,serviceName,sampleImg,
+        serviceType,showRank,isShown,
+        vendorId,isDeleted,createTime,
+        updateTime
+    </sql>
+</mapper>
