@@ -62,6 +62,9 @@ public class GiftServiceImpl implements IGiftService {
         if (temp == null) {
             return ServiceResultEnum.DATA_NOT_EXIST.getResult();
         }
+        if (gift.getGiftLabelIdList().isEmpty()) {
+            gift.setGiftLabelIdList(null);
+        }
         gift.setUpdateTime(new Date());
         if (this.giftDao.updateGift(gift) > 0) {
             return ServiceResultEnum.SUCCESS.getResult();
