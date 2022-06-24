@@ -34,13 +34,19 @@ public class CustomServiceController {
     public Result<PageResult> getAll(@RequestParam int vendorId, @RequestParam int currentPage, @RequestParam int pageSize){
         QueryWrapper<CustomService> queryWrapper = new QueryWrapper<>();
         if(vendorId == 1) {
-            queryWrapper.eq("vendorid", 1);
+            queryWrapper.eq("vendorId", 1)
+                    .eq("isDeleted", 0)
+                    .orderByDesc("showRank")
+                    .orderByAsc("serviceId");
             List<CustomService> res1 = customServiceService.list(queryWrapper);
             PageResult pageResult = new PageResult(res1, res1.size(), pageSize, currentPage);
             return ResultGenerator.genSuccessResultData(pageResult);
         }else if(vendorService.queryVendorById(vendorId) !=null
                 || adminService.getAdminById(vendorId) != null){
-            queryWrapper.eq("vendorid", vendorId);
+            queryWrapper.eq("vendorId", vendorId)
+                    .eq("isDeleted", 0)
+                    .orderByDesc("showRank")
+                    .orderByAsc("serviceId");
             List<CustomService> res1 = customServiceService.list(queryWrapper);
             PageResult pageResult = new PageResult(res1, res1.size(), pageSize, currentPage);
             return ResultGenerator.genSuccessResultData(pageResult);
@@ -50,7 +56,7 @@ public class CustomServiceController {
     }
 
     @PutMapping("/showStatus")
-    public Result updateStatus(@RequestBody int serviceId,@RequestParam int showStatus){
+    public Result updateStatus(@RequestParam int serviceId,@RequestParam int showStatus){
         CustomService customService = customServiceService.getById(serviceId);
         customService.setIsshown(showStatus);
         java.util.Date date = new Date();
@@ -67,9 +73,9 @@ public class CustomServiceController {
     }
 
     @PostMapping
-    public Result Service(@RequestBody CustomService customService) {
+    public Result addNewCustomService(@RequestBody CustomService customService) {
         Result result;
-        int id = customService.getServiceid();
+        int id = customService.getVendorid();
 
         if(adminService.getAdminById(id) == null && vendorService.queryVendorById(id) == null){
             result = ResultGenerator.genFailResult("未查询到该商家");
@@ -92,7 +98,7 @@ public class CustomServiceController {
         CustomService customService = customServiceService.getById(id);
         Result res;
         if(customService == null){
-            res = ResultGenerator.genFailResult("为查询到该服务");
+            res = ResultGenerator.genFailResult("未查询到该服务");
         }else{
             res = ResultGenerator.genSuccessResultData(customService);
         }
