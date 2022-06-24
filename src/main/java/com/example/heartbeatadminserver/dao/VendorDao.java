@@ -7,7 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 @Mapper
-public interface VendorDao {
+public interface VendorDao{
 
     /**
      * 插入商家
