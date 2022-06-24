@@ -27,7 +27,6 @@ public class GiftController {
     @PostMapping("/gift")
     @ApiOperation("/新增礼物")
     public Result<String> addGift(@RequestBody Gift gift, int adminId) {
-        gift.setCreateTime(new Date());
         String res = this.giftService.addGift(gift);
         if (res.equals(ServiceResultEnum.SUCCESS.getResult())) {
            return ResultGenerator.genSuccessResult(res);

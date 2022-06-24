@@ -24,6 +24,7 @@ public class GiftServiceImpl implements IGiftService {
 
     @Override
     public String addGift(Gift gift) {
+        gift.setCreateTime(new Date());
         if (this.giftDao.insertGift(gift) > 0) {
             return ServiceResultEnum.SUCCESS.getResult();
         }
@@ -111,7 +112,7 @@ public class GiftServiceImpl implements IGiftService {
     public List<List<LabelNew>> getGiftLabels(Gift gift) {
         String labelIds = gift.getGiftLabelIdList();
         if (labelIds == null || labelIds.length()<=0) {
-            return null;
+            return new ArrayList<>();
         }
         String[] temp = labelIds.split(",");
         List<Integer> ids = new ArrayList<>();
