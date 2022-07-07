@@ -2,6 +2,8 @@ package com.example.heartbeatadminserver.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.heartbeatadminserver.entity.Category;
 import com.example.heartbeatadminserver.service.ICategoryService;
 import com.example.heartbeatadminserver.util.PageResult;
@@ -31,8 +33,12 @@ public class CategoryController {
                 .eq("isDeleted", 0) // 过滤已删除的分类
                 .orderByDesc("categoryRank")
                 .orderByAsc("categoryID");
-        List<Category> res1 = categoryService.list(queryWrapper);
-        PageResult pageResult = new PageResult(res1,res1.size(),pageSize,currentPage);
+        IPage page = new Page(currentPage, pageSize);
+        IPage page1 = categoryService.page(page, queryWrapper);
+        System.out.println(page1.getSize());
+
+
+        PageResult pageResult = new PageResult(page1.getRecords(), (int) page1.getSize(),pageSize,currentPage);
         return ResultGenerator.genSuccessResultData(pageResult);
     }
 

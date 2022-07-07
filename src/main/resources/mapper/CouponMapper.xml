@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.heartbeatadminserver.dao.CouponMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.heartbeatadminserver.entity.Coupon">
+            <id property="couponid" column="couponId" jdbcType="INTEGER"/>
+            <result property="couponname" column="couponName" jdbcType="VARCHAR"/>
+            <result property="coupontype" column="couponType" jdbcType="INTEGER"/>
+            <result property="couponprice" column="couponPrice" jdbcType="DOUBLE"/>
+            <result property="starttime" column="startTime" jdbcType="TIMESTAMP"/>
+            <result property="endtime" column="endTime" jdbcType="TIMESTAMP"/>
+            <result property="showrank" column="showRank" jdbcType="INTEGER"/>
+            <result property="isshown" column="isShown" jdbcType="INTEGER"/>
+            <result property="createuser" column="createUser" jdbcType="INTEGER"/>
+            <result property="isdeleted" column="isDeleted" jdbcType="INTEGER"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        couponId,couponName,couponType,
+        couponPrice,startTime,endTime,
+        showRank,isShown,createUser,
+        isDeleted,createTime,updateTime
+    </sql>
+</mapper>
