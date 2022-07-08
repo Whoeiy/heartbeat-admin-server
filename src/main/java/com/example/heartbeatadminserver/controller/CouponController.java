@@ -49,8 +49,8 @@ public class CouponController {
     }
 
     @GetMapping
-    public Result<PageResult> getAll(int adminId, @RequestBody int id, @RequestParam int currentPage, @RequestParam int pageSize) {
-        if (iAdminService.getAdminById(id) == null || iVendorService.queryVendorById(id) == null) {
+    public Result<PageResult> getAll(int adminId, @RequestParam int currentPage, @RequestParam int pageSize) {
+        if (iAdminService.getAdminById(adminId) == null || iVendorService.queryVendorById(adminId) == null) {
             return ResultGenerator.genFailResult("未查询到该商家");
         }
         IPage page = new Page(currentPage, pageSize);
