@@ -35,10 +35,9 @@ public class CategoryController {
                 .orderByAsc("categoryID");
         IPage page = new Page(currentPage, pageSize);
         IPage page1 = categoryService.page(page, queryWrapper);
-        System.out.println(page1.getSize());
 
 
-        PageResult pageResult = new PageResult(page1.getRecords(), (int) page1.getSize(),pageSize,currentPage);
+        PageResult pageResult = new PageResult(page1.getRecords(), (int) page1.getPages(),pageSize,currentPage);
         return ResultGenerator.genSuccessResultData(pageResult);
     }
 

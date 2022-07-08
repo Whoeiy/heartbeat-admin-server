@@ -50,18 +50,18 @@ public class CouponController {
 
     @GetMapping
     public Result<PageResult> getAll(int adminId, @RequestParam int currentPage, @RequestParam int pageSize) {
-        if (iAdminService.getAdminById(adminId) == null || iVendorService.queryVendorById(adminId) == null) {
+        if (iAdminService.getAdminById(adminId) == null && iVendorService.queryVendorById(adminId) == null) {
             return ResultGenerator.genFailResult("未查询到该商家");
         }
         IPage page = new Page(currentPage, pageSize);
         QueryWrapper<Coupon> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("isDeleted", 0)
-                .eq("isShow", 1)
+                .eq("isShown", 1)
                 .orderByDesc("showRank")
                 .orderByAsc("couponId");
         IPage page1 = couponService.page(page, queryWrapper);
 
-        PageResult pageResult = new PageResult(page1.getRecords(), (int) page1.getSize(), pageSize, currentPage);
+        PageResult pageResult = new PageResult(page1.getRecords(), (int) page1.getPages(), pageSize, currentPage);
         return ResultGenerator.genSuccessResultData(pageResult);
     }
 
