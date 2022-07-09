@@ -123,8 +123,5 @@ public class CouponController {
         }else{
             return ResultGenerator.genFailResult("不能更新此优惠");
         }
-
     }
-
-
 }
