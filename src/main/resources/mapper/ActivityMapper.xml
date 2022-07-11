@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.heartbeatadminserver.dao.ActivityMapper">
+
+    <resultMap id="BaseResultMap" type="com.example.heartbeatadminserver.entity.Activity">
+            <id property="activityid" column="activityId" jdbcType="INTEGER"/>
+            <result property="activityname" column="activityName" jdbcType="VARCHAR"/>
+            <result property="activitydetail" column="activityDetail" jdbcType="VARCHAR"/>
+            <result property="activitytype" column="activityType" jdbcType="INTEGER"/>
+            <result property="activitystatus" column="activityStatus" jdbcType="INTEGER"/>
+            <result property="starttime" column="startTime" jdbcType="TIMESTAMP"/>
+            <result property="endtime" column="endTime" jdbcType="TIMESTAMP"/>
+            <result property="couponid" column="couponId" jdbcType="INTEGER"/>
+            <result property="showrank" column="showRank" jdbcType="INTEGER"/>
+            <result property="isshown" column="isShown" jdbcType="INTEGER"/>
+            <result property="createuser" column="createUser" jdbcType="INTEGER"/>
+            <result property="createtime" column="createTime" jdbcType="TIMESTAMP"/>
+            <result property="isdeleted" column="isDeleted" jdbcType="INTEGER"/>
+            <result property="updatetime" column="updateTime" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        activityId,activityName,activityDetail,
+        activityType,activityStatus,startTime,
+        endTime,couponId,showRank,
+        isShown,createUser,createTime,
+        isDeleted,updateTime
+    </sql>
+</mapper>
