@@ -1,6 +1,8 @@
 package com.example.heartbeatadminserver.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.heartbeatadminserver.entity.Category;
 import com.example.heartbeatadminserver.entity.Label;
 import com.example.heartbeatadminserver.entity.LabelNew;
@@ -33,7 +35,9 @@ public class LabelController {
                 .orderByDesc("labelRank")
                 .orderByAsc("labelID");
         List<LabelNew> res1 = labelNewService.list(queryWrapper);
-        PageResult pageResult = new PageResult(res1,res1.size(),pageSize,currentPage);
+        IPage page = new Page(currentPage, pageSize);
+        IPage page1 = labelNewService.page(page, queryWrapper);
+        PageResult pageResult = new PageResult(page1.getRecords(),(int)page1.getPages(),pageSize,currentPage);
         return ResultGenerator.genSuccessResultData(pageResult);
     }
 //

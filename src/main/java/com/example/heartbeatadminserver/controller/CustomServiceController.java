@@ -2,6 +2,8 @@ package com.example.heartbeatadminserver.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.example.heartbeatadminserver.entity.CustomService;
 import com.example.heartbeatadminserver.entity.LabelNew;
 import com.example.heartbeatadminserver.entity.Vendor;
@@ -39,7 +41,10 @@ public class CustomServiceController {
                     .orderByDesc("showRank")
                     .orderByAsc("serviceId");
             List<CustomService> res1 = customServiceService.list(queryWrapper);
-            PageResult pageResult = new PageResult(res1, res1.size(), pageSize, currentPage);
+            IPage page = new Page(currentPage, pageSize);
+            IPage page1 = customServiceService.page(page, queryWrapper);
+
+            PageResult pageResult = new PageResult(page1.getRecords(), (int) page1.getPages(), pageSize, currentPage);
             return ResultGenerator.genSuccessResultData(pageResult);
         }else if(vendorService.queryVendorById(vendorId) !=null
                 || adminService.getAdminById(vendorId) != null){
