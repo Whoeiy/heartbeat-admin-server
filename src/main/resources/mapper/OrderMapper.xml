@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.heartbeatadminserver.dao.OrderDao">
+    
+    <resultMap id="OrderResultMap" type="com.example.heartbeatadminserver.entity.Order">
+        <id column="orderNo" jdbcType="VARCHAR" property="orderNo"/>
+        <result column="customerId" jdbcType="INTEGER" property="customerId"/>
+        <result column="address" jdbcType="VARCHAR" property="address"/>
+        <result column="orderType" jdbcType="INTEGER" property="orderType"/>
+        <result column="payStatus" jdbcType="INTEGER" property="payStatus"/>
+        <result column="payType" jdbcType="INTEGER" property="payType"/>
+        <result column="payTime" jdbcType="TIMESTAMP" property="payTime"/>
+        <result column="totalPrice" jdbcType="DOUBLE" property="totalPrice"/>
+        <result column="createTime" jdbcType="TIMESTAMP" property="createTime"/>
+        <result column="updateTime" jdbcType="TIMESTAMP" property="updateTime"/>
+    </resultMap>
+
+    <resultMap id="OrderItemResultMap" type="com.example.heartbeatadminserver.entity.OrderItem">
+        <id column="orderItemId" jdbcType="INTEGER" property="orderItemId"/>
+        <result column="giftId" jdbcType="INTEGER" property="giftId"/>
+        <result column="giftName" jdbcType="VARCHAR" property="giftName"/>
+        <result column="giftCount" jdbcType="INTEGER" property="giftCount"/>
+        <result column="giftImg" jdbcType="CLOB" property="giftImg"/>
+        <result column="giftPrice" jdbcType="DOUBLE" property="giftPrice"/>
+        <result column="sellingPrice" jdbcType="DOUBLE" property="sellingPrice"/>
+        <result column="service" jdbcType="CLOB" property="service"/>
+    </resultMap>
+
+    <sql id="getOrderItemListCols">
+        orderItemId,giftId,giftName,giftCount,giftImg,giftPrice,sellingPrice,service
+    </sql>
+    
+<!--    List<Order> getOrderList(String orderNo, Integer orderStatus);-->
+    <select id="getOrderList" resultMap="OrderResultMap">
+        select * from mall_order
+        <where>
+            <if test="orderNo != null">orderNo = #{orderNo}</if>
+            <if test="orderStatus != null">and orderStatus = #{orderStatus}</if>
+        </where>
+        order by createTime desc
+    </select>
+
+<!--    Order getOrder(String orderNo);-->
+    <select id="getOrder" resultType="com.example.heartbeatadminserver.entity.Order">
+        select * from mall_order
+        where orderNo = #{orderNo}
+    </select>
+
+<!--    List<OrderItem> getOrderItemList(String orderNo);-->
+    <select id="getOrderItemList" resultMap="OrderItemResultMap">
+        select <include refid="getOrderItemListCols"></include>
+        from mall_orderItem
+        where orderNo = #{orderNo}
+        order by orderItemId asc
+    </select>
+
+<!--    Integer updateOrderStatus(List<String> orderNos, Integer orderStatus);-->
+    <update id="updateOrderStatus">
+        update mall_order
+        set orderStatus = #{orderStatus, jdbcType=INTEGER},
+            updateTime = now()
+        where orderNo in
+        <foreach collection="orderNos" item="orderNo" index="index" open="(" close=")" separator=",">
+            #{orderNo}
+        </foreach>
+    </update>
+</mapper>
+
+
+
+
