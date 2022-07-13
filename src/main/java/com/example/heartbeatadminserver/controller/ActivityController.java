@@ -25,10 +25,9 @@ public class ActivityController {
     @GetMapping
     public Result<PageResult> getAll(int adminId, @RequestParam int currentPage, @RequestParam int pageSize) {
         QueryWrapper<Activity> queryWrapper = new QueryWrapper<>();
-        queryWrapper.eq("isShown", 1)
-                .eq("isDeleted", 0) // 过滤已删除的分类
+        queryWrapper.eq("isDeleted", 0) // 过滤已删除的分类
                 .orderByDesc("showRank")
-                .orderByAsc("couponId");
+                .orderByAsc("activityId");
         IPage page = new Page(currentPage, pageSize);
         IPage page1 = activityService.page(page, queryWrapper);
 
