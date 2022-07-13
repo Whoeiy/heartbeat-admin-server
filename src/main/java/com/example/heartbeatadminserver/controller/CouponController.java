@@ -56,7 +56,6 @@ public class CouponController {
         IPage page = new Page(currentPage, pageSize);
         QueryWrapper<Coupon> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("isDeleted", 0)
-                .eq("isShown", 1)
                 .orderByDesc("showRank")
                 .orderByAsc("couponId");
         IPage page1 = couponService.page(page, queryWrapper);
