@@ -1,5 +1,7 @@
 package com.example.heartbeatadminserver.controller;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.example.heartbeatadminserver.common.ServiceResultEnum;
 import com.example.heartbeatadminserver.controller.vo.OrderVo;
 import com.example.heartbeatadminserver.service.Impl.OrderServiceImpl;
@@ -50,11 +52,12 @@ public class OrderController {
 
     @PutMapping("/order/startCustomService")
     @ApiOperation("/开始定制")
-    public Result startCustomService(@RequestParam String orderNos) {
-        if (orderNos.equals("")) {
+    public Result startCustomService(@RequestBody String orderNos) {
+        String nos = JSON.parseObject(orderNos).getString("orderNos");
+        if (nos.equals("")) {
             return ResultGenerator.genFailResult("请输入要操作的订单号");
         }
-        String[] input = orderNos.split(",");
+        String[] input = nos.split(",");
         List<String> orderNoList = Arrays.asList(input);
 
         String res = this.orderService.startCustomService(orderNoList);
@@ -66,11 +69,12 @@ public class OrderController {
 
     @PutMapping("/order/endCustomService")
     @ApiOperation("/定制完成")
-    public Result endCustomService(@RequestParam String orderNos) {
-        if (orderNos.equals("")) {
+    public Result endCustomService(@RequestBody String orderNos) {
+        String nos = JSON.parseObject(orderNos).getString("orderNos");
+        if (nos.equals("")) {
             return ResultGenerator.genFailResult("请输入要操作的订单号");
         }
-        String[] input = orderNos.split(",");
+        String[] input = nos.split(",");
         List<String> orderNoList = Arrays.asList(input);
 
         String res = this.orderService.finishCustomService(orderNoList);
@@ -82,11 +86,12 @@ public class OrderController {
 
     @PutMapping("/order/checkout")
     @ApiOperation("/出库")
-    public Result checkout(@RequestParam String orderNos) {
-        if (orderNos.equals("")) {
+    public Result checkout(@RequestBody String orderNos) {
+        String nos = JSON.parseObject(orderNos).getString("orderNos");
+        if (nos.equals("")) {
             return ResultGenerator.genFailResult("请输入要操作的订单号");
         }
-        String[] input = orderNos.split(",");
+        String[] input = nos.split(",");
         List<String> orderNoList = Arrays.asList(input);
 
         String res = this.orderService.checkout(orderNoList);
@@ -98,11 +103,12 @@ public class OrderController {
 
     @PutMapping("/order/close")
     @ApiOperation("/关闭订单")
-    public Result closeOrder(@RequestParam String orderNos) {
-        if (orderNos.equals("")) {
+    public Result closeOrder(@RequestBody String orderNos) {
+        String nos = JSON.parseObject(orderNos).getString("orderNos");
+        if (nos.equals("")) {
             return ResultGenerator.genFailResult("请输入要操作的订单号");
         }
-        String[] input = orderNos.split(",");
+        String[] input = nos.split(",");
         List<String> orderNoList = Arrays.asList(input);
 
         String res = this.orderService.closeOrder(orderNoList);
