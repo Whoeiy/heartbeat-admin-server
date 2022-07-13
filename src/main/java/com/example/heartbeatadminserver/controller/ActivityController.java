@@ -116,13 +116,14 @@ public class ActivityController {
     @PutMapping("/showStatus")
     public Result putStatus(int adminId, @RequestParam int activityId, @RequestParam int showstatus) {
         Activity activity = activityService.getById(activityId);
-        Integer isshown = activity.getIsshown();
-        if (isshown == 0) {
-            isshown = 1;
-        } else {
-            isshown = 0;
-        }
-        activity.setIsshown(isshown);
+//        Integer isshown = activity.getIsshown();
+//        if (isshown == 0) {
+//            isshown = 1;
+//        } else {
+//            isshown = 0;
+//        }
+        activity.setIsshown(showstatus);
+        activity.setUpdatetime(new Date());
         boolean b = activityService.updateById(activity);
         if (b) {
             return ResultGenerator.genSuccessResult();

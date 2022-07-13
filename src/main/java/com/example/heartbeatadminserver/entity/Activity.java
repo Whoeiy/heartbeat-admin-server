@@ -31,6 +31,8 @@ public class Activity implements Serializable {
      */
     private String activitydetail;
 
+    private String posterurl;
+
     /**
      * 活动类型: 1-有奖活动，2-主题活动
      */
