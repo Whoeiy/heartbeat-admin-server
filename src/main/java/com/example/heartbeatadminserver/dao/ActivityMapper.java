@@ -2,6 +2,7 @@ package com.example.heartbeatadminserver.dao;
 
 import com.example.heartbeatadminserver.entity.Activity;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
 * @author lihanbin
@@ -9,6 +10,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 * @createDate 2022-07-11 11:57:45
 * @Entity com.example.heartbeatadminserver.entity.Activity
 */
+@Mapper
 public interface ActivityMapper extends BaseMapper<Activity> {
 
 }
