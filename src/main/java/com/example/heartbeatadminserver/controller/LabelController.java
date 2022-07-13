@@ -37,24 +37,11 @@ public class LabelController {
         List<LabelNew> res1 = labelNewService.list(queryWrapper);
         IPage page = new Page(currentPage, pageSize);
         IPage page1 = labelNewService.page(page, queryWrapper);
-        PageResult pageResult = new PageResult(page1.getRecords(),(int)page1.getPages(),pageSize,currentPage);
+        PageResult pageResult = new PageResult(page1.getRecords(), (int) page1.getTotal(),
+                (int)page1.getSize(),currentPage);
         return ResultGenerator.genSuccessResultData(pageResult);
     }
-//
-//    @GetMapping("/level")
-//    public PageResult getLevel(int adminId, @RequestParam int categoryLevel, @RequestParam int parentId,
-//                               @RequestParam int currentPage, @RequestParam int pageSize) {
-//        QueryWrapper<Category> queryWrapper = new QueryWrapper<>();
-//        queryWrapper.eq("categoryLevel", categoryLevel)
-//                .eq("parentId", parentId)
-//                .orderByAsc("categoryID");
-//
-//        List<Category> result = categoryService.list(queryWrapper);
-//        PageResult pageResult = new PageResult(result,result.size(),currentPage,pageSize);
-//
-//        return pageResult;
-//    }
-//
+
     @GetMapping("/{id}")
     public Result getById(@PathVariable Integer id){
         LabelNew label = labelNewService.getById(id);
@@ -66,12 +53,7 @@ public class LabelController {
         }
         return res;
     }
-//
-////    @GetMapping("/page")
-////    public IPage<Category> getPage(int adminId, @RequestParam int currentPage, @RequestParam int pageSize) {
-////        return categoryService.getPage(currentPage, pageSize);
-////    }
-//
+
     //更新label
     @PutMapping
     public Result updateLabelInfo(int adminId, @RequestBody LabelNew label) {
@@ -98,8 +80,10 @@ public class LabelController {
                 .orderByDesc("labelRank")
                 .orderByAsc("labelID");
 
-        List<LabelNew> result = labelNewService.list(queryWrapper);
-        PageResult pageResult = new PageResult(result,result.size(),pageSize,currentPage);
+        IPage page = new Page(currentPage, pageSize);
+        IPage page1 = labelNewService.page(page, queryWrapper);
+        PageResult pageResult = new PageResult(page1.getRecords(), (int) page1.getTotal(),
+                (int)page1.getSize(),currentPage);
         Result<PageResult> result1 = ResultGenerator.genSuccessResultData(pageResult);
         return result1;
     }

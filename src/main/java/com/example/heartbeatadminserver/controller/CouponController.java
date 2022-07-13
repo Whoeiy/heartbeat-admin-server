@@ -60,7 +60,8 @@ public class CouponController {
                 .orderByAsc("couponId");
         IPage page1 = couponService.page(page, queryWrapper);
 
-        PageResult pageResult = new PageResult(page1.getRecords(), (int) page1.getPages(), pageSize, currentPage);
+        PageResult pageResult = new PageResult(page1.getRecords(), (int) page1.getTotal(),
+                (int)page1.getSize(),currentPage);
         return ResultGenerator.genSuccessResultData(pageResult);
     }
 

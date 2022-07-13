@@ -4,10 +4,12 @@ package com.example.heartbeatadminserver.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.example.heartbeatadminserver.controller.vo.CouponVo;
 import com.example.heartbeatadminserver.entity.Activity;
 import com.example.heartbeatadminserver.entity.Category;
 import com.example.heartbeatadminserver.entity.Coupon;
 import com.example.heartbeatadminserver.service.ActivityService;
+import com.example.heartbeatadminserver.service.CouponService;
 import com.example.heartbeatadminserver.util.PageResult;
 import com.example.heartbeatadminserver.util.Result;
 import com.example.heartbeatadminserver.util.ResultGenerator;
@@ -22,6 +24,9 @@ public class ActivityController {
     @Autowired
     private ActivityService activityService;
 
+    @Autowired
+    private CouponService couponService;
+
     @GetMapping
     public Result<PageResult> getAll(int adminId, @RequestParam int currentPage, @RequestParam int pageSize) {
         QueryWrapper<Activity> queryWrapper = new QueryWrapper<>();
@@ -32,23 +37,26 @@ public class ActivityController {
         IPage page1 = activityService.page(page, queryWrapper);
 
 
-        PageResult pageResult = new PageResult(page1.getRecords(), (int) page1.getPages(), pageSize, currentPage);
+        PageResult pageResult = new PageResult(page1.getRecords(), (int) page1.getTotal(),
+                (int)page1.getSize(),currentPage);
         return ResultGenerator.genSuccessResultData(pageResult);
     }
 
     @PostMapping
     public Result insertActivity(int adminId, @RequestBody Activity activity) {
 
-        activity.setCreatetime(new Date());
-        activity.setCreateuser(adminId);
-        activity.setActivitystatus(0);
-        boolean flag = activityService.save(activity);
-        Result result;
         Integer activitytype = activity.getActivitytype();
         Integer couponid = activity.getCouponid();
         if (activitytype == 1 && couponid == null) {
             return ResultGenerator.genFailResult("有奖活动缺少优惠");
         }
+        activity.setCreatetime(new Date());
+        activity.setCreateuser(adminId);
+        activity.setActivitystatus(0);
+
+        boolean flag = activityService.save(activity);
+        Result result;
+
         if (flag) {
             result = ResultGenerator.genSuccessResult();
         } else {
@@ -73,11 +81,16 @@ public class ActivityController {
     @GetMapping("/{id}")
     public Result getById(@PathVariable Integer id) {
         Activity activity = activityService.getById(id);
+        Integer couponid = activity.getCouponid();
+        Coupon coupon = couponService.getById(couponid);
+        CouponVo couponVo = new CouponVo();
+        couponVo.setCoupon(coupon);
+        couponVo.setActivity(activity);
         Result res;
         if (activity == null) {
             res = ResultGenerator.genFailResult("未能查询到次活动");
         } else {
-            res = ResultGenerator.genSuccessResultData(activity);
+            res = ResultGenerator.genSuccessResultData(couponVo);
         }
         return res;
     }

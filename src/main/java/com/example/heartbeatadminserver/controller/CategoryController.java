@@ -37,7 +37,8 @@ public class CategoryController {
         IPage page1 = categoryService.page(page, queryWrapper);
 
 
-        PageResult pageResult = new PageResult(page1.getRecords(), (int) page1.getPages(),pageSize,currentPage);
+        PageResult pageResult = new PageResult(page1.getRecords(), (int) page1.getTotal(),
+                (int)page1.getSize(),currentPage);
         return ResultGenerator.genSuccessResultData(pageResult);
     }
 
@@ -50,9 +51,11 @@ public class CategoryController {
                 .eq("isDeleted", 0)
                 .orderByDesc("categoryRank")
                 .orderByAsc("categoryID");
+        IPage page = new Page(currentPage, pageSize);
+        IPage page1 = categoryService.page(page, queryWrapper);
 
-        List<Category> result = categoryService.list(queryWrapper);
-        PageResult pageResult = new PageResult(result,result.size(),pageSize,currentPage);
+        PageResult pageResult = new PageResult(page1.getRecords(), (int) page1.getTotal(),
+                (int)page1.getSize(),currentPage);
         Result<PageResult> result1 = ResultGenerator.genSuccessResultData(pageResult);
         return result1;
     }

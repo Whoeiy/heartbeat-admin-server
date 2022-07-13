@@ -40,11 +40,12 @@ public class CustomServiceController {
                     .eq("isDeleted", 0)
                     .orderByDesc("showRank")
                     .orderByAsc("serviceId");
-            List<CustomService> res1 = customServiceService.list(queryWrapper);
+
             IPage page = new Page(currentPage, pageSize);
             IPage page1 = customServiceService.page(page, queryWrapper);
 
-            PageResult pageResult = new PageResult(page1.getRecords(), (int) page1.getPages(), pageSize, currentPage);
+            PageResult pageResult = new PageResult(page1.getRecords(), (int) page1.getTotal(),
+                    (int)page1.getSize(),currentPage);
             return ResultGenerator.genSuccessResultData(pageResult);
         }else if(vendorService.queryVendorById(vendorId) !=null
                 || adminService.getAdminById(vendorId) != null){
@@ -52,8 +53,11 @@ public class CustomServiceController {
                     .eq("isDeleted", 0)
                     .orderByDesc("showRank")
                     .orderByAsc("serviceId");
-            List<CustomService> res1 = customServiceService.list(queryWrapper);
-            PageResult pageResult = new PageResult(res1, res1.size(), pageSize, currentPage);
+
+            IPage page = new Page(currentPage, pageSize);
+            IPage page1 = customServiceService.page(page, queryWrapper);
+            PageResult pageResult = new PageResult(page1.getRecords(), (int) page1.getTotal(),
+                    (int)page1.getSize(),currentPage);
             return ResultGenerator.genSuccessResultData(pageResult);
         }
         return ResultGenerator.genFailResult("未查询到该商家");
